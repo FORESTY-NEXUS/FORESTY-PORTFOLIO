@@ -5,7 +5,6 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Animatedglow from "../components/Animatedglow";
 import Services from "./Services";
-import { ProjectGrid } from "./Project";
 
 export default function Front() {
   const ref = useRef(null);
@@ -91,11 +90,6 @@ export default function Front() {
             "
           />
         </div>
-      </div>
-
-      {/* Projects Section */}
-      <div className="relative bg-black">
-        <ProjectGrid showTitle={true} />
       </div>
     </section>
   );

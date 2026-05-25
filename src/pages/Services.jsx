@@ -1,6 +1,5 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
-import { ProjectGrid } from '../pages/Project'
 const serviceItems = [
   {
     title: "React JS",
