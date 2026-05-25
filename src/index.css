@@ -1,0 +1,8 @@
+@import "tailwindcss";
+.green-glow {
+  pointer-events: none;
+}
+
+.green-glow-secondary {
+  pointer-events: none;
+}
