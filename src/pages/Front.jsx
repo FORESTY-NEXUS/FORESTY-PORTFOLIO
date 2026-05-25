@@ -2,10 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import Navbar from "../components/Navbar";
 import Animatedglow from "../components/Animatedglow";
 import Services from "./Services";
-
+import Navbar from "../components/Navbar";
 export default function Front() {
   const ref = useRef(null);
 
@@ -29,6 +28,7 @@ export default function Front() {
 
   return (
     <section
+      id="home"
       ref={ref}
       className="relative h-[380vh] bg-black overflow-clip"
     >

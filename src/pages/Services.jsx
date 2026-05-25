@@ -170,6 +170,7 @@ export default function Services({ progress }) {
 
   return (
     <div
+      id="services"
       className="
         absolute
         inset-0

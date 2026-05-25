@@ -109,6 +109,7 @@ export default function Project() {
 
   return (
     <div
+      id="projects"
       ref={containerRef}
       className="w-full bg-black text-white py-24 relative"
     >
