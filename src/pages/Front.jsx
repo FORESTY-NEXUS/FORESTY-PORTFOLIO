@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
 import Services from "./Services";
 import Navbar from "../components/Navbar";
+
 export default function Front() {
   const ref = useRef(null);
 
@@ -30,65 +31,50 @@ export default function Front() {
     <section
       id="home"
       ref={ref}
-      className="relative h-[380vh] bg-black overflow-clip"
+      // DESKTOP: 380vh for the scroll animation. MOBILE: height auto so it scrolls normally.
+      className="relative bg-black overflow-clip h-auto lg:h-[380vh]"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div className="relative flex h-full w-full items-center justify-center">
-          <Navbar />
-          <Animatedglow />
+      {/* DESKTOP: Sticky container traps the screen. MOBILE: Normal relative container. */}
+      <div className="w-full lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
+        
+        {/* Flex-col on mobile stacks the sections. Block on desktop layers them. */}
+        <div className="relative flex w-full flex-col lg:block lg:h-full lg:items-center lg:justify-center">
+          
+          <div className="relative z-50">
+             <Navbar />
+          </div>
 
-          <motion.h1
-            style={{ opacity: heroOpacity, scale: heroScale }}
-            className="
-              absolute
-              top-1/2
-              left-1/2
-              -translate-x-1/2
-              -translate-y-1/2
-              text-[16vw]
-              sm:text-[18vw]
-              md:text-[16vw]
-              lg:text-[17vw]
-              font-black
-              text-white
-              select-none
-              z-10
-              text-center
-              whitespace-nowrap
-              tracking-[0.15em]
-              px-4
-            "
-          >
-            FORESTY
-          </motion.h1>
+          {/* 1. HERO SECTION (Text & Tree) */}
+          {/* MOBILE: Takes exactly 1 screen height. DESKTOP: Sits absolute behind Services. */}
+          <div className="relative flex h-[100svh] w-full items-center justify-center overflow-hidden lg:absolute lg:inset-0 lg:h-full lg:w-full">
+            <Animatedglow />
 
-          <Services progress={sceneProgress} />
+            <motion.h1
+              style={{ opacity: heroOpacity, scale: heroScale }}
+              className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-4 text-center text-[18vw] font-black tracking-[0.15em] text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
+            >
+              FORESTY
+            </motion.h1>
 
-          <motion.img
-            src="/maintree.png"
-            alt="Foresty Tree"
-            style={{
-              y: treeY,
-              scale: treeScale,
-              opacity: treeOpacity,
-            }}
-            className="
-              absolute
-              -bottom-10
-              left-1/2
-              -translate-x-1/2
-              z-40
-              pointer-events-none
-              object-contain
+            <motion.img
+              src="/maintree.png"
+              alt="Foresty Tree"
+              style={{
+                y: treeY,
+                scale: treeScale,
+                opacity: treeOpacity,
+              }}
+              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 max-h-[85vh] w-[90%] -translate-x-1/2 object-contain sm:w-[80%] md:w-[650px] lg:w-[720px]"
+            />
+          </div>
 
-              w-[90%]
-              sm:w-[80%]
-              md:w-[650px]
-              lg:w-[720px]
+          {/* 2. SERVICES SECTION */}
+          {/* MOBILE: Flows naturally below the hero with a dark bg. DESKTOP: Sits absolute over the tree. */}
+          {/* Note: I added a very dark green/black background to this mobile wrapper to completely block the tree from bleeding through. */}
+          <div className="relative z-50 w-full bg-[#050A05] lg:absolute lg:inset-0 lg:z-20 lg:bg-transparent">
+            <Services progress={sceneProgress} />
+          </div>
 
-              max-h-[85vh]
-            "
-          />
         </div>
       </div>
     </section>

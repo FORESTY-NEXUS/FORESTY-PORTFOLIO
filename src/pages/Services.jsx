@@ -1,5 +1,6 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
+
 const serviceItems = [
   {
     title: "React JS",
@@ -32,8 +33,7 @@ const serviceItems = [
     textClass: "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
-
-    
+    // Center Logo Node (Foresty)
     logo: "/FORESTY LOGO.jfif",
     logoClass: "rounded-full object-cover",
     x: 50,
@@ -76,26 +76,6 @@ const serviceItems = [
     entryX: 26,
     textClass: "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
-//   {
-//     title: "Framer Motion",
-//     description: "Smooth UI and web animations",
-//     logo: "/framermotion logo.png",
-//     x: 5,
-//     y: 82,
-//     revealStart: 0.7,
-//     entryX: 16,
-//     textClass: "left-1/2 top-[calc(100%+1.1rem)] w-44 -translate-x-1/2 text-center",
-//   },
-//   {
-//     title: "Backend Ready",
-//     description: "APIs, auth, and scalable systems",
-//     logo: "/NODE JS LOGO.png",
-//     x: 89,
-//     y: 82,
-//     revealStart: 0.72,
-//     entryX: 16,
-//     textClass: "left-1/2 top-[calc(100%+1.1rem)] w-44 -translate-x-1/2 text-center",
-//   },
 ];
 
 function ServiceNode({ item, progress }) {
@@ -138,17 +118,19 @@ function ServiceNode({ item, progress }) {
           <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
           <img
             src={item.logo}
-            alt={item.title}
+            alt={item.title || "Logo"}
             className={`relative z-10 object-contain ${item.imageClass || "h-[72%] w-[72%]"} ${item.logoClass || ""}`}
           />
         </div>
 
-        <div className={`absolute text-white/90 ${item.textClass}`}>
-          <p className="text-xl font-semibold text-white sm:text-[1.65rem]">{item.title}</p>
-          <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
-            {item.description}
-          </p>
-        </div>
+        {item.title && (
+          <div className={`absolute text-white/90 ${item.textClass}`}>
+            <p className="text-xl font-semibold text-white sm:text-[1.65rem]">{item.title}</p>
+            <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
+              {item.description}
+            </p>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -166,19 +148,23 @@ export default function Services({ progress }) {
   const ringScale = useTransform(ringProgress, [0.5, 0.82], [0.88, 1]);
   const sweepX = useTransform(ringProgress, [0.52, 0.98], ["-18%", "118%"]);
   const sweepOpacity = useTransform(ringProgress, [0.54, 0.72, 0.96], [0, 0.8, 0]);
-  const titleOpacity = useTransform(ringProgress, [0.48, 0.64, 0.92], [0, 0.35, 1]);
+  
+  // Adjusted opacity for the background text to make sure mobile text is readable over it
+  const titleOpacity = useTransform(ringProgress, [0.48, 0.64, 0.92], [0, 0.2, 0.5]);
 
   return (
     <div
       id="services"
       className="
-        absolute
-        inset-0
+        relative
         overflow-hidden
         text-center
         text-white
+        lg:absolute
+        lg:inset-0
       "
     >
+      {/* BACKGROUND TEXT - Fixed position so it stays centered behind scrolling mobile content */}
       <motion.h1
         style={{ opacity: titleOpacity }}
         className="
@@ -187,25 +173,28 @@ export default function Services({ progress }) {
           left-1/2
           -translate-x-1/2
           -translate-y-1/2
-          text-[16vw]
+          text-[22vw]
           sm:text-[18vw]
           md:text-[16vw]
           lg:text-[17vw]
           font-black
-          text-white
+          text-white/10
           select-none
           z-0
           text-center
           whitespace-nowrap
           tracking-[0.15em]
           px-4
+          pointer-events-none
         "
       >
         SERVICES
       </motion.h1>
 
+      {/* --- DESKTOP VIEW (Arc Layout) --- */}
       <div
         className="
+          hidden lg:block
           pointer-events-none
           absolute
           left-1/2
@@ -270,11 +259,83 @@ export default function Services({ progress }) {
           />
 
           {serviceItems.map((item) => (
-            <ServiceNode key={item.title} item={item} progress={ringProgress} />
+            <ServiceNode key={item.title || "center-logo"} item={item} progress={ringProgress} />
           ))}
         </motion.div>
       </div>
-     
+
+      {/* --- MOBILE & TABLET VIEW (Stacked Glassmorphic Cards) --- */}
+      <div className="relative z-30 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-[11rem] h-[27rem] bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.16),rgba(10,18,11,0.08)_42%,transparent_76%)]" />
+
+        {serviceItems.map((item) => {
+          if (item.title) return null;
+
+          return (
+            <motion.div
+              key="mobile-center-logo"
+              initial={{ opacity: 0, scale: 0.85, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="relative mb-10 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-emerald-300/80 bg-white shadow-[0_0_22px_rgba(16,185,129,0.95)]"
+            >
+              <img
+                src={item.logo}
+                alt="Foresty"
+                className="h-[88%] w-[88%] rounded-full object-cover"
+              />
+            </motion.div>
+          );
+        })}
+
+        <div className="relative z-10 flex w-full flex-col gap-4">
+          {serviceItems.map((item, index) => {
+            if (!item.title) return null;
+
+            return (
+              <motion.div
+                key={`mobile-${item.title}`}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: index * 0.08, duration: 0.4 }}
+                className="relative overflow-hidden rounded-[1.15rem] border border-emerald-500/20 bg-[#040704] px-4 py-4 shadow-[0_0_0_1px_rgba(34,197,94,0.04),0_16px_35px_rgba(0,0,0,0.48)]"
+              >
+                <div className="absolute inset-y-0 left-0 w-full bg-[linear-gradient(90deg,rgba(14,58,29,0.72),rgba(11,34,18,0.38)_36%,rgba(4,7,4,0)_72%)]" />
+                <div className="absolute inset-0 rounded-[1.15rem] shadow-[inset_0_0_0_1px_rgba(34,197,94,0.08)]" />
+
+                <div className="relative flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-emerald-300/30 bg-black shadow-[0_0_0_1px_rgba(16,185,129,0.12),0_0_18px_rgba(16,185,129,0.18)]">
+                    <img
+                      src={item.logo}
+                      alt={item.title}
+                      className={`object-contain ${item.imageClass || "h-[62%] w-[62%]"} ${item.logoClass || ""}`}
+                    />
+                  </div>
+
+                  <div className="min-w-0 text-left">
+                    <h3 className="font-mono text-[1.08rem] leading-none text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 max-w-[15rem] text-[0.78rem] leading-snug text-white/75">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <img
+          src="/maintree.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-8 left-1/2 z-20 w-[120%] max-w-none -translate-x-1/2 object-contain opacity-95"
+        />
+      </div>
+
     </div>
   );
 }
