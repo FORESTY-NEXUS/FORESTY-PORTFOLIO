@@ -40,7 +40,7 @@ export default function Navbar() {
         </ul>
 
         <button
-          onClick={() => window.open("https://www.fiverr.com/s/dDKw6Y6", "_blank")}
+          onClick={() => window.open("https://www.fiverr.com/foresty_nexus", "_blank")}
           className="
             px-5 py-2 bg-green-500 rounded-full font-medium
             hover:bg-green-600 hover:scale-105 transition

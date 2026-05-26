@@ -23,8 +23,10 @@ export default function Front() {
   const heroOpacity = useTransform(sceneProgress, [0, 0.34, 0.5], [1, 1, 0]);
   const heroScale = useTransform(sceneProgress, [0, 0.45], [1, 0.96]);
 
-  const treeY = useTransform(sceneProgress, [0, 0.36, 0.68], [0, 300, 28]);
-  const treeScale = useTransform(sceneProgress, [0, 0.4, 0.72], [1, 0.94, 0.97]);
+  const desktopTreeY = useTransform(sceneProgress, [0, 0.36, 0.68], [0, 300, 28]);
+  const desktopTreeScale = useTransform(sceneProgress, [0, 0.4, 0.72], [1, 0.94, 0.97]);
+  const mobileTreeY = useTransform(sceneProgress, [0, 0.18, 0.42, 0.72], [190, 850, 1200, 1380]);
+  const mobileTreeScale = useTransform(sceneProgress, [0, 0.2, 0.48], [1.1, 1.03, 0.98]);
   const treeOpacity = useTransform(sceneProgress, [0, 0.92, 1], [1, 1, 0.96]);
 
   return (
@@ -39,6 +41,16 @@ export default function Front() {
         
         {/* Flex-col on mobile stacks the sections. Block on desktop layers them. */}
         <div className="relative flex w-full flex-col lg:block lg:h-full lg:items-center lg:justify-center">
+          <motion.img
+            src="/maintree.png"
+            alt="Foresty Tree"
+            style={{
+              y: mobileTreeY,
+              scale: mobileTreeScale,
+              opacity: treeOpacity,
+            }}
+            className="pointer-events-none absolute left-1/2 top-0 z-[70] w-[120%] -translate-x-1/2 object-contain lg:hidden"
+          />
           
           <div className="relative z-50">
              <Navbar />
@@ -60,18 +72,18 @@ export default function Front() {
               src="/maintree.png"
               alt="Foresty Tree"
               style={{
-                y: treeY,
-                scale: treeScale,
+                y: desktopTreeY,
+                scale: desktopTreeScale,
                 opacity: treeOpacity,
               }}
-              className="pointer-events-none absolute bottom-30 left-1/2 z-40 max-h-[85vh] w-[120%] -translate-x-1/2 object-contain sm:w-[80%] md:w-[650px] lg:w-[720px]"
+              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 hidden max-h-[85vh] w-[720px] -translate-x-1/2 object-contain lg:block"
             />
           </div>
 
           {/* 2. SERVICES SECTION */}
           {/* MOBILE: Flows naturally below the hero with a dark bg. DESKTOP: Sits absolute over the tree. */}
           {/* Note: I added a very dark green/black background to this mobile wrapper to completely block the tree from bleeding through. */}
-          <div className="relative z-50 w-full bg-[#050A05] lg:absolute lg:inset-0 lg:z-20 lg:bg-transparent">
+          <div className="relative w-full bg-[#050A05] lg:absolute lg:inset-0 lg:z-20 lg:bg-transparent">
             <Services progress={sceneProgress} />
           </div>
 

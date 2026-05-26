@@ -265,7 +265,7 @@ export default function Services({ progress }) {
       </div>
 
       {/* --- MOBILE & TABLET VIEW (Stacked Glassmorphic Cards) --- */}
-      <div className="relative z-30 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
+      <div className="relative z-20 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
         <div className="pointer-events-none absolute inset-x-0 top-[11rem] h-[27rem] bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.16),rgba(10,18,11,0.08)_42%,transparent_76%)]" />
 
         {serviceItems.map((item) => {
@@ -328,12 +328,6 @@ export default function Services({ progress }) {
           })}
         </div>
 
-        <img
-          src="/maintree.png"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-8 left-1/2 z-20 w-full max-w-[28rem] -translate-x-1/2 object-contain opacity-95"
-        />
       </div>
 
     </div>
