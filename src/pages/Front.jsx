@@ -64,7 +64,7 @@ export default function Front() {
                 scale: treeScale,
                 opacity: treeOpacity,
               }}
-              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 max-h-[85vh] w-[90%] -translate-x-1/2 object-contain sm:w-[80%] md:w-[650px] lg:w-[720px]"
+              className="pointer-events-none absolute bottom-30 left-1/2 z-40 max-h-[85vh] w-[120%] -translate-x-1/2 object-contain sm:w-[80%] md:w-[650px] lg:w-[720px]"
             />
           </div>
 

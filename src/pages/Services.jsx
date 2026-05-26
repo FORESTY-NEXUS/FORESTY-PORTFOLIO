@@ -332,7 +332,7 @@ export default function Services({ progress }) {
           src="/maintree.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-8 left-1/2 z-20 w-[120%] max-w-none -translate-x-1/2 object-contain opacity-95"
+          className="pointer-events-none absolute -bottom-8 left-1/2 z-20 w-full max-w-[28rem] -translate-x-1/2 object-contain opacity-95"
         />
       </div>
 

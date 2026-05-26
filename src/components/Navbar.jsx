@@ -51,12 +51,12 @@ export default function Navbar() {
       </nav>
 
       {/* ================= MOBILE BOTTOM NAV ================= */}
-      <nav className="
-        md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50
-        w-[92%] h-16 px-4 rounded-full border border-gray-800
-        bg-black/70 backdrop-blur-xl flex items-center justify-between
-        text-white shadow-2xl
-      ">
+     <nav className="
+  md:hidden fixed bottom-8  z-50 w-screen
+  h-16 rounded-full border border-gray-800
+  bg-black/70 backdrop-blur-xl flex items-center justify-around
+  text-white shadow-2xl
+">
 
         <button onClick={() => scrollToSection("home")} className="flex flex-col items-center text-xs hover:text-green-500">
           <HomeIcon />

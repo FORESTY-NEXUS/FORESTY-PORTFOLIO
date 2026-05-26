@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -45,3 +55,4 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #27ae60; /* A slightly darker green on hover */
 }
+
