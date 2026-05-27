@@ -2,11 +2,15 @@
 
 
 html,
-body,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 #root {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 

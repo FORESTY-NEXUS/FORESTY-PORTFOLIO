@@ -8,9 +8,10 @@ const serviceItems = [
     logo: "/react js logo.png",
     x: 17,
     y: 45,
-    revealStart: 0.56,
+    revealStart: 0.22,
     entryX: -36,
-    textClass: "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
+    textClass:
+      "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
     title: "Next.js",
@@ -18,9 +19,10 @@ const serviceItems = [
     logo: "/next js logo.png",
     x: 9,
     y: 73,
-    revealStart: 0.58,
+    revealStart: 0.26,
     entryX: -28,
-    textClass: "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
+    textClass:
+      "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
     title: "Tailwind CSS",
@@ -28,9 +30,10 @@ const serviceItems = [
     logo: "/tailwind-css-logo.png",
     x: 32,
     y: 28,
-    revealStart: 0.6,
+    revealStart: 0.3,
     entryX: -22,
-    textClass: "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
+    textClass:
+      "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
     // Center Logo Node (Foresty)
@@ -38,7 +41,7 @@ const serviceItems = [
     logoClass: "rounded-full object-cover",
     x: 50,
     y: 23,
-    revealStart: 0.62,
+    revealStart: 0.34,
     entryX: -22,
     textClass: "left-1/2 top-[-5.5rem] w-44 -translate-x-1/2 text-center",
   },
@@ -50,9 +53,10 @@ const serviceItems = [
     imageClass: "h-[62%] w-[62%]",
     x: 70,
     y: 28,
-    revealStart: 0.64,
+    revealStart: 0.38,
     entryX: -16,
-    textClass: "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
+    textClass:
+      "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
     title: "Express.js",
@@ -61,9 +65,10 @@ const serviceItems = [
     imageClass: "h-[60%] w-[60%]",
     x: 83,
     y: 45,
-    revealStart: 0.66,
+    revealStart: 0.42,
     entryX: 18,
-    textClass: "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
+    textClass:
+      "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
     title: "MongoDB",
@@ -72,9 +77,10 @@ const serviceItems = [
     imageClass: "h-[60%] w-[60%]",
     x: 90,
     y: 73,
-    revealStart: 0.68,
+    revealStart: 0.46,
     entryX: 26,
-    textClass: "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
+    textClass:
+      "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
 ];
 
@@ -82,17 +88,17 @@ function ServiceNode({ item, progress }) {
   const nodeOpacity = useTransform(
     progress,
     [item.revealStart, item.revealStart + 0.08],
-    [0, 1]
+    [0, 1],
   );
   const nodeScale = useTransform(
     progress,
     [item.revealStart, item.revealStart + 0.1],
-    [0.7, 1]
+    [0.7, 1],
   );
   const nodeX = useTransform(
     progress,
     [item.revealStart, item.revealStart + 0.12],
-    [item.entryX, 0]
+    [item.entryX, 0],
   );
 
   return (
@@ -125,7 +131,9 @@ function ServiceNode({ item, progress }) {
 
         {item.title && (
           <div className={`absolute text-white/90 ${item.textClass}`}>
-            <p className="text-xl font-semibold text-white sm:text-[1.65rem]">{item.title}</p>
+            <p className="text-xl font-semibold text-white sm:text-[1.65rem]">
+              {item.title}
+            </p>
             <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
               {item.description}
             </p>
@@ -137,20 +145,28 @@ function ServiceNode({ item, progress }) {
 }
 
 export default function Services({ progress }) {
-  const ringProgress = useSpring(progress, {
-    stiffness: 42,
-    damping: 18,
-    mass: 1.15,
-  });
+  const ringProgress = progress;
 
-  const ringY = useTransform(ringProgress, [0.52, 0.88], [54, 0]);
-  const ringOpacity = useTransform(ringProgress, [0.5, 0.68, 0.88], [0, 0.8, 1]);
-  const ringScale = useTransform(ringProgress, [0.5, 0.82], [0.88, 1]);
-  const sweepX = useTransform(ringProgress, [0.52, 0.98], ["-18%", "118%"]);
-  const sweepOpacity = useTransform(ringProgress, [0.54, 0.72, 0.96], [0, 0.8, 0]);
-  
+  const ringY = useTransform(ringProgress, [0.15, 0.5], [54, 0]);
+  const ringOpacity = useTransform(
+    ringProgress,
+    [0.12, 0.26, 0.6],
+    [0, 0.8, 1],
+  );
+  const ringScale = useTransform(ringProgress, [0.12, 0.45], [0.88, 1]);
+  const sweepX = useTransform(ringProgress, [0.16, 0.62], ["-18%", "118%"]);
+  const sweepOpacity = useTransform(
+    ringProgress,
+    [0.18, 0.32, 0.6],
+    [0, 0.8, 0],
+  );
+
   // Adjusted opacity for the background text to make sure mobile text is readable over it
-  const titleOpacity = useTransform(ringProgress, [0.48, 0.64, 0.92], [0, 0.2, 0.5]);
+  const titleOpacity = useTransform(
+    ringProgress,
+    [0.1, 0.22, 0.6],
+    [0, 0.2, 0.5],
+  );
 
   return (
     <div
@@ -162,7 +178,10 @@ export default function Services({ progress }) {
         text-white
         lg:absolute
         lg:inset-0
-      "
+        lg:h-screen
+      
+        
+        "
     >
       {/* BACKGROUND TEXT - Fixed position so it stays centered behind scrolling mobile content */}
       <motion.h1
@@ -221,7 +240,13 @@ export default function Services({ progress }) {
             className="absolute inset-0 h-full w-full overflow-visible"
           >
             <defs>
-              <linearGradient id="services-ring-stroke" x1="0%" y1="50%" x2="100%" y2="50%">
+              <linearGradient
+                id="services-ring-stroke"
+                x1="0%"
+                y1="50%"
+                x2="100%"
+                y2="50%"
+              >
                 <stop offset="0%" stopColor="rgba(74, 222, 128, 0.55)" />
                 <stop offset="50%" stopColor="rgba(134, 239, 172, 0.98)" />
                 <stop offset="100%" stopColor="rgba(74, 222, 128, 0.55)" />
@@ -259,7 +284,11 @@ export default function Services({ progress }) {
           />
 
           {serviceItems.map((item) => (
-            <ServiceNode key={item.title || "center-logo"} item={item} progress={ringProgress} />
+            <ServiceNode
+              key={item.title || "center-logo"}
+              item={item}
+              progress={ringProgress}
+            />
           ))}
         </motion.div>
       </div>
@@ -327,9 +356,7 @@ export default function Services({ progress }) {
             );
           })}
         </div>
-
       </div>
-
     </div>
   );
 }

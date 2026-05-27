@@ -2,7 +2,11 @@ import { BriefcaseIcon, HomeIcon, PhoneIcon, UserIcon } from "lucide-react";
 
 export default function Navbar() {
   const scrollToSection = (id) => {
-    const el = document.getElementById(id);
+    let targetId = id;
+    if (id === "services" && window.innerWidth >= 1024) {
+      targetId = "services-anchor";
+    }
+    const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }

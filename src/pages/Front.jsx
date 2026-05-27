@@ -20,25 +20,46 @@ export default function Front() {
     mass: 0.45,
   });
 
-  const heroOpacity = useTransform(sceneProgress, [0, 0.34, 0.5], [1, 1, 0]);
-  const heroScale = useTransform(sceneProgress, [0, 0.45], [1, 0.96]);
+  const heroOpacity = useTransform(sceneProgress, [0, 0.15, 0.3], [1, 1, 0]);
+  const heroScale = useTransform(sceneProgress, [0, 0.3], [1, 0.96]);
 
-  const desktopTreeY = useTransform(sceneProgress, [0, 0.36, 0.68], [0, 300, 28]);
-  const desktopTreeScale = useTransform(sceneProgress, [0, 0.4, 0.72], [1, 0.94, 0.97]);
-  const mobileTreeY = useTransform(sceneProgress, [0, 0.18, 0.42, 0.72], [190, 850, 1200, 1380]);
-  const mobileTreeScale = useTransform(sceneProgress, [0, 0.2, 0.48], [1.1, 1.03, 0.98]);
+  const desktopTreeY = useTransform(
+    sceneProgress,
+    [0, 0.2, 0.55],
+    [0, 120, 28],
+  );
+  const desktopTreeScale = useTransform(
+    sceneProgress,
+    [0, 0.25, 0.6],
+    [1, 0.94, 0.97],
+  );
+  const mobileTreeY = useTransform(
+    sceneProgress,
+    [0, 0.18, 0.42, 0.72],
+    [190, 850, 1200, 1380],
+  );
+  const mobileTreeScale = useTransform(
+    sceneProgress,
+    [0, 0.2, 0.48],
+    [1.1, 1.03, 0.98],
+  );
   const treeOpacity = useTransform(sceneProgress, [0, 0.92, 1], [1, 1, 0.96]);
 
   return (
     <section
       id="home"
       ref={ref}
-      // DESKTOP: 380vh for the scroll animation. MOBILE: height auto so it scrolls normally.
-      className="relative bg-black overflow-clip h-auto lg:h-[380vh]"
+      // DESKTOP: 280vh for the scroll animation. MOBILE: height auto so it scrolls normally.
+      className="relative bg-black h-auto lg:h-[280vh] lg:overflow-visible"
     >
+      {/* Desktop Services scroll anchor */}
+      <div
+        id="services-anchor"
+        className="absolute top-[150vh] h-screen w-0 pointer-events-none hidden lg:block"
+      />
+
       {/* DESKTOP: Sticky container traps the screen. MOBILE: Normal relative container. */}
       <div className="w-full lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
-        
         {/* Flex-col on mobile stacks the sections. Block on desktop layers them. */}
         <div className="relative flex w-full flex-col lg:block lg:h-full lg:items-center lg:justify-center">
           <motion.img
@@ -49,11 +70,11 @@ export default function Front() {
               scale: mobileTreeScale,
               opacity: treeOpacity,
             }}
-            className="pointer-events-none absolute left-1/2 top-0 z-[70] w-[120%] -translate-x-1/2 object-contain lg:hidden"
+            className="pointer-events-none relative left-1/2 top-0 z-[70] w-[120%] -translate-x-1/2 object-contain lg:hidden"
           />
-          
+
           <div className="relative z-50">
-             <Navbar />
+            <Navbar />
           </div>
 
           {/* 1. HERO SECTION (Text & Tree) */}
@@ -86,7 +107,6 @@ export default function Front() {
           <div className="relative w-full bg-[#050A05] lg:absolute lg:inset-0 lg:z-20 lg:bg-transparent">
             <Services progress={sceneProgress} />
           </div>
-
         </div>
       </div>
     </section>
