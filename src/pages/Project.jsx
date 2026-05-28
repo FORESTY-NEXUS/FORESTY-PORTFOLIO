@@ -13,10 +13,10 @@ const projects = [
   },
   {
     title: "FORESTY RESTURANT",
-    image: "/foresty-resturant.netlify.app.png",
+    image: "/FORESTY RESTURAAANt.png",
     description: "A WEBSITE FOR RESTURANTS TO MAKE THIER RESTURANT DEIGITAL.",
     tech: ["React", "JAVASCRIPT", "NEXT JS"],
-    live: "https://cheezarilla-resturant.netlify.app",
+    live: "https://foresty-resturant.netlify.app",
   },
   {
     title: "FORESTY LOVE",

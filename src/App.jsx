@@ -5,8 +5,10 @@ import Front from './pages/Front'
 import Projects from './pages/Project'
 import Contact from './pages/ContactPage'
 import About from './pages/About'
+import Footer from './pages/Footer'
 
 function App() {
+  
   return (
     <>
       <Navbar />
@@ -14,6 +16,7 @@ function App() {
       <Projects />
       <Contact />
       <About />
+      <Footer />
     </>
   )
 }

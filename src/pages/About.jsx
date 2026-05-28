@@ -1,55 +1,174 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Rocket, Star, Leaf, Shield } from 'lucide-react';
 
-const About = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+const teamMembers = [
+  {
+    role: 'Full-Stack Developer',
+    description:
+      'Passionate about building end-to-end web solutions with modern technologies. Specializing in React, Next.js, and Node.js ecosystems.',
+  },
+];
+
+const values = [
+  {
+    title: 'Innovation',
+    description: 'Pushing boundaries with cutting-edge technologies and creative solutions.',
+    icon: <Rocket size={40} className="mx-auto text-white" />,
+  },
+  {
+    title: 'Quality',
+    description: 'Every line of code is crafted with precision, performance, and maintainability in mind.',
+    icon: <Star size={36} className="mx-auto text-white" />,
+  },
+  {
+    title: 'Growth',
+    description: 'Continuously learning and evolving to deliver the best possible solutions.',
+    icon: <Leaf size={36} className="mx-auto text-white" />,
+  },
+  {
+    title: 'Reliability',
+    description: 'Building robust, scalable applications that stand the test of time.',
+    icon: <Shield size={36} className="mx-auto text-white" />,
+  },
+];
+
+export default function About() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.about-bg-letter', {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 1,
+        },
+        y: 80,
+        opacity: 0,
+        stagger: 0.05,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div id="about" className="relative min-h-screen w-full bg-black  text-white flex items-center justify-center px-6 overflow-hidden">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="relative min-h-screen py-20 px-5 md:px-10 overflow-hidden bg-black"
+    >
+      {/* Background text */}
+      <div className="flex justify-center mb-8 md:mb-12 select-none pointer-events-none">
+        <div className="flex">
+          {'ABOUT US'.split('').map((letter, i) => (
+            <span key={i} className="about-bg-letter section-bg-text">
+              {letter === ' ' ? '\u00A0' : letter}
+            </span>
+          ))}
+        </div>
+      </div>
 
-      {/* 🔥 Glowing Background */}
-     
-
-      {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative max-w-3xl text-center space-y-8"
-      >
-        {/* Title */}
-        <h1 className="text-5xl md:text-7xl font-bold">
-          ABOUT FORESTY
-        </h1>
-
-        {/* Scroll Reveal Sections */}
-        {[
-          "Hello dear visitor  We are FORESTY, a modern web development agency focused on building clean, fast, and visually powerful websites.",
-          "We specialize in React, Next.js, Node.js, and MongoDB  making production-ready digital experiences with strong UI/UX.",
-          "From portfolios to full-stack applications, we turn ideas into scalable, modern web products.",
-        ].map((text, index) => (
-          <motion.p
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.6 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            className="text-lg md:text-xl text-gray-300 leading-relaxed"
+      <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Top section: Logo + intro */}
+        <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 mb-16">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="flex-shrink-0"
           >
-            {text}
-          </motion.p>
-        ))}
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-2 border-forest-500/30 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+              <img
+                src="/FORESTY LOGO.jfif"
+                alt="Foresty"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
 
+          {/* Intro text */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.7 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 green-glow-text">
+              About <span className="text-forest-500">Foresty</span>
+            </h2>
+            <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-xl">
+              Foresty is a creative development studio specializing in building modern,
+              high-performance web applications. We transform ideas into digital experiences
+              that are not just functional, but visually stunning and user-centric.
+            </p>
+            <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-xl mt-3">
+              From academic management systems to interactive restaurants and creative love
+              platforms — we bring every vision to life with clean code and beautiful design.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Values grid */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 1 }}
-          className="text-sm md:text-3xl font-semibold text-gray-300 pt-4"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 0.7 }}
         >
-          Built with precision. Designed for impact.
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-8 text-center">
+            What Drives Us
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {values.map((value, i) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.6 + i * 0.1, duration: 0.5 }}
+                className="service-card-glow rounded-xl p-6 text-center group hover:border-forest-500/40 transition-all duration-300"
+              >
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {value.icon}
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2">{value.title}</h4>
+                <p className="text-sm text-gray-400 leading-relaxed">{value.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
-      </motion.div>
-    </div>
-  );
-};
 
-export default About;
+        {/* Tech stack summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-6">Our Tech Stack</h3>
+          <div className="flex flex-wrap justify-center gap-4">
+            {['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Framer Motion', 'GSAP'].map(
+              (tech, i) => (
+                <motion.span
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 1 + i * 0.05 }}
+                  className="px-4 py-2 rounded-full border border-forest-500/30 text-sm text-gray-300 bg-forest-900/50 hover:border-forest-500 hover:text-forest-500 transition-all duration-300 cursor-default"
+                >
+                  {tech}
+                </motion.span>
+              )
+            )}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
