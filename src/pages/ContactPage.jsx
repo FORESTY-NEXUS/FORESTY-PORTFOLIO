@@ -129,7 +129,7 @@ const ContactPage = () => {
             </a>
 
             <a
-              href="https://wa.me/923331456448"
+              href="https://wa.me/923195403032"
               target="_blank"
               rel="noreferrer"
               className="hover:text-green-400"
