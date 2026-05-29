@@ -1,3 +1,4 @@
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
 
@@ -6,7 +7,7 @@ const serviceItems = [
     title: "React JS",
     description: "Build dynamic user interfaces",
     logo: "/react js logo.png",
-    x: 17,
+    x: 5,
     y: 45,
     revealStart: 0.22,
     entryX: -36,
@@ -17,7 +18,7 @@ const serviceItems = [
     title: "Next.js",
     description: "Server-side, full-stack performance",
     logo: "/next js logo.png",
-    x: 9,
+    x: -7,
     y: 73,
     revealStart: 0.26,
     entryX: -28,
@@ -63,7 +64,7 @@ const serviceItems = [
     description: "Fast, minimal web framework",
     logo: "/express-js.png",
     imageClass: "h-[60%] w-[60%]",
-    x: 83,
+    x: 94,
     y: 45,
     revealStart: 0.42,
     entryX: 18,
@@ -75,7 +76,7 @@ const serviceItems = [
     description: "Scalable NoSQL database",
     logo: "/mongodb logo.svg",
     imageClass: "h-[60%] w-[60%]",
-    x: 90,
+    x: 107,
     y: 73,
     revealStart: 0.46,
     entryX: 26,
@@ -84,7 +85,7 @@ const serviceItems = [
   },
 ];
 
-function ServiceNode({ item, progress }) {
+function ServiceNode({ item, progress, containerDimensions }) {
   const nodeOpacity = useTransform(
     progress,
     [item.revealStart, item.revealStart + 0.08],
@@ -101,51 +102,122 @@ function ServiceNode({ item, progress }) {
     [item.entryX, 0],
   );
 
+  // The SVG ring preserves its aspect ratio (viewBox 1000x780).
+  // The percentages (item.x, item.y) were handcrafted on a specific container aspect ratio.
+  const AUTHORED_WIDTH = 1220;
+  const AUTHORED_HEIGHT = 1040;
+  const VIEWBOX_WIDTH = 1000;
+  const VIEWBOX_HEIGHT = 780;
+
+  // Wait until we have container dimensions
+  if (!containerDimensions.width || !containerDimensions.height) return null;
+
+  // 1. Determine how the SVG was scaled and offset on the AUTHORED screen
+  const authScale = Math.min(
+    AUTHORED_WIDTH / VIEWBOX_WIDTH,
+    AUTHORED_HEIGHT / VIEWBOX_HEIGHT,
+  );
+  const authSvgWidth = VIEWBOX_WIDTH * authScale;
+  const authSvgHeight = VIEWBOX_HEIGHT * authScale;
+  const authOffsetX = (AUTHORED_WIDTH - authSvgWidth) / 2;
+  const authOffsetY = (AUTHORED_HEIGHT - authSvgHeight) / 2;
+
+  // 2. Convert the handcrafted percentages back into the TRUE viewBox coordinates
+  const pixelX_Authored = (item.x / 100) * AUTHORED_WIDTH;
+  const pixelY_Authored = (item.y / 100) * AUTHORED_HEIGHT;
+
+  const viewBoxX =
+    ((pixelX_Authored - authOffsetX) / authSvgWidth) * VIEWBOX_WIDTH;
+  const viewBoxY =
+    ((pixelY_Authored - authOffsetY) / authSvgHeight) * VIEWBOX_HEIGHT;
+
+  // 3. Determine how the SVG is scaled and offset on the CURRENT screen
+  const currentScale = Math.min(
+    containerDimensions.width / VIEWBOX_WIDTH,
+    containerDimensions.height / VIEWBOX_HEIGHT,
+  );
+
+  const currentSvgWidth = VIEWBOX_WIDTH * currentScale;
+  const currentSvgHeight = VIEWBOX_HEIGHT * currentScale;
+  const currentOffsetX = (containerDimensions.width - currentSvgWidth) / 2;
+  const currentOffsetY = (containerDimensions.height - currentSvgHeight) / 2;
+
+  // 4. Map the true viewBox coordinates perfectly onto the current screen!
+  const realX = currentOffsetX + (viewBoxX / VIEWBOX_WIDTH) * currentSvgWidth;
+  const realY = currentOffsetY + (viewBoxY / VIEWBOX_HEIGHT) * currentSvgHeight;
+
   return (
-    <motion.div
+    <div
       style={{
-        left: `${item.x}%`,
-        top: `${item.y}%`,
-        opacity: nodeOpacity,
-        scale: nodeScale,
-        x: nodeX,
+        position: "absolute",
+        left: realX,
+        top: realY,
+        transform: "translate(-50%, -50%)",
+        zIndex: 30,
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2"
     >
-      <div className="relative">
-        <div
-          className="
+      <motion.div
+        style={{
+          opacity: nodeOpacity,
+          scale: nodeScale,
+          x: nodeX,
+        }}
+      >
+        <div className="relative">
+          <div
+            className="
             flex h-20 w-20 items-center justify-center rounded-full
             border border-green-300/70 bg-transparent text-green-100
             shadow-[0_0_30px_rgba(74,222,128,0.18)]
             sm:h-24 sm:w-24
           "
-        >
-          <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
-          <img
-            src={item.logo}
-            alt={item.title || "Logo"}
-            className={`relative z-10 object-contain ${item.imageClass || "h-[72%] w-[72%]"} ${item.logoClass || ""}`}
-          />
-        </div>
-
-        {item.title && (
-          <div className={`absolute text-white/90 ${item.textClass}`}>
-            <p className="text-xl font-semibold text-white sm:text-[1.65rem]">
-              {item.title}
-            </p>
-            <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
-              {item.description}
-            </p>
+          >
+            <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
+            <img
+              src={item.logo}
+              alt={item.title || "Logo"}
+              className={`relative z-10 object-contain ${item.imageClass || "h-[72%] w-[72%]"} ${item.logoClass || ""}`}
+            />
           </div>
-        )}
-      </div>
-    </motion.div>
+
+          {item.title && (
+            <div className={`absolute text-white/90 ${item.textClass}`}>
+              <p className="text-xl font-semibold text-white sm:text-[1.65rem]">
+                {item.title}
+              </p>
+              <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
+                {item.description}
+              </p>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
 export default function Services({ progress }) {
   const ringProgress = progress;
+
+  const containerRef = useRef(null);
+  const [containerDimensions, setDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        setDimensions({
+          width: entries[0].contentRect.width,
+          height: entries[0].contentRect.height,
+        });
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const ringY = useTransform(ringProgress, [0.15, 0.5], [54, 0]);
   const ringOpacity = useTransform(
@@ -179,6 +251,7 @@ export default function Services({ progress }) {
         lg:absolute
         lg:inset-0
         lg:h-screen
+        aspect-ratio: 1/1
       
         
         "
@@ -197,7 +270,7 @@ export default function Services({ progress }) {
           md:text-[16vw]
           lg:text-[17vw]
           font-black
-          text-white/10
+          text-white
           select-none
           z-0
           text-center
@@ -212,6 +285,7 @@ export default function Services({ progress }) {
 
       {/* --- DESKTOP VIEW (Arc Layout) --- */}
       <div
+        ref={containerRef}
         className="
           hidden lg:block
           pointer-events-none
@@ -288,6 +362,7 @@ export default function Services({ progress }) {
               key={item.title || "center-logo"}
               item={item}
               progress={ringProgress}
+              containerDimensions={containerDimensions}
             />
           ))}
         </motion.div>
