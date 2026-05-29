@@ -265,7 +265,7 @@ export default function Services({ progress }) {
           left-1/2
           -translate-x-1/2
           -translate-y-1/2
-          text-[22vw]
+          text-[14vw]
           sm:text-[18vw]
           md:text-[16vw]
           lg:text-[17vw]

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Animatedglow from "../components/Animatedglow";
 import EnterAnimation from "../components/EnterAnimation";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -42,11 +41,6 @@ const ANIMATION_CSS = `
     }
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
   .title-enter {
     opacity: 0;
     animation: fadeSlideUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
@@ -67,31 +61,60 @@ const ANIMATION_CSS = `
   }
 `;
 
-function useInjectStyles(css) {
-  useEffect(() => {
-    const id = "project-page-animations";
-    if (document.getElementById(id)) return;
-
-    const style = document.createElement("style");
-    style.id = id;
-    style.textContent = css;
-    document.head.appendChild(style);
-
-    return () => {
-      const el = document.getElementById(id);
-      if (el) el.remove();
-    };
-  }, []);
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Project() {
   useInjectStyles(ANIMATION_CSS);
-
   const containerRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
-  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      ScrollTrigger.matchMedia({
+        // ONLY MOBILE - Stacking Animation
+        "(max-width: 768px)": () => {
+          const cards = gsap.utils.toArray(".project-card");
+
+          cards.forEach((card, i) => {
+            // 1. Pin the OUTER container
+            ScrollTrigger.create({
+              trigger: card,
+              start: "top 12%",
+              endTrigger: containerRef.current,
+              end: "bottom 90%",
+              pin: true,
+              pinSpacing: false,
+            });
+
+            // 2. Animate the INNER wrapper so it doesn't fight the pin
+            const innerCard = card.querySelector(".card-scale-wrapper");
+
+            if (i !== cards.length - 1 && innerCard) {
+              gsap.to(innerCard, {
+                scale: 0.85,
+                opacity: 0.3,
+                transformOrigin: "top center", // Makes it shrink from the top edge
+                ease: "none",
+                scrollTrigger: {
+                  trigger: cards[i + 1],
+                  start: "top 85%", // Starts fading when the next card enters screen
+                  end: "top 15%", // Finishes fading right before it overlaps
+                  scrub: true,
+                },
+              });
+            }
+          });
+        },
+
+        // DESKTOP (NO EFFECT)
+        "(min-width: 769px)": () => {
+          // intentionally empty
+        },
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -112,132 +135,22 @@ export default function Project() {
     };
   }, []);
 
-  // ✅ GSAP MOBILE ONLY ANIMATION
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.matchMedia({
-        "(max-width: 768px)": () => {
-          const cards = gsap.utils.toArray(".project-card");
-          if (!cards.length) return;
-
-          const wrappers = cards.map(c => c.parentElement); // EnterAnimation wrappers
-          const flexContainer = wrappers[0].parentElement; // The flex-col grid container
-
-          // 1. Prevent pinned section from clipping the incoming cards
-          gsap.set(containerRef.current, { minHeight: "100vh" });
-
-          // 2. Force wrappers to stack in the exact same position, while keeping flexContainer height intact
-          gsap.set(flexContainer, { 
-            position: "relative", 
-            minHeight: () => wrappers[0].offsetHeight 
-          });
-          
-          gsap.set(wrappers, { 
-            position: "absolute", 
-            top: 0, 
-            left: 0, 
-            width: "100%" 
-          });
-
-          // 3. Set initial states (card 0 is active, others wait off-screen below)
-          cards.forEach((card, i) => {
-            gsap.set(card, {
-              transformOrigin: "center top",
-              y: () => i === 0 ? 0 : window.innerHeight,
-              zIndex: i,
-              filter: "blur(0px)",
-              opacity: 1,
-              scale: 1,
-              animation: "none" // Force kill the CSS animation so GSAP can move them!
-            });
-          });
-
-          // 4. Single master timeline for the pinned scroll effect
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top top",
-              end: `+=${cards.length * 800}`,
-              scrub: 1,
-              pin: true,
-              invalidateOnRefresh: true,
-            },
-          });
-
-          // 5. Sequence the stack animations
-          for (let i = 1; i < cards.length; i++) {
-            const label = `stage${i}`;
-            
-            // Bring the next card up into view
-            tl.to(cards[i], {
-              y: 0,
-              ease: "none",
-              duration: 1
-            }, label);
-            
-            // Push previous cards back, scale down, and blur
-            for (let j = 0; j < i; j++) {
-              const depth = i - j;
-              tl.to(cards[j], {
-                scale: 1 - depth * 0.05,
-                y: -depth * 25,
-                filter: `blur(${depth === 1 ? 8 : 12}px)`,
-                opacity: depth === 1 ? 0.7 : 0.4,
-                ease: "none",
-                duration: 1
-              }, label);
-            }
-          }
-        },
-
-        "(min-width: 769px)": () => {
-          // no animation
-        },
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 768px)");
-    const update = (e) => setIsMobileScreen(e.matches);
-    setIsMobileScreen(mq.matches);
-    if (mq.addEventListener) mq.addEventListener("change", update);
-    else mq.addListener(update);
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener("change", update);
-      else mq.removeListener(update);
-    };
-  }, []);
-
   return (
     <div
       id="projects"
       ref={containerRef}
-      className="w-full bg-black text-white py-24 relative overflow-hidden"
+      className="w-full bg-black text-white py-24 relative"
     >
-      {/* Glow */}
       <div className="absolute flex justify-center items-center inset-0 pointer-events-none opacity-100">
         <Animatedglow />
       </div>
 
       <div className="relative z-10">
-        {/* Title */}
         <div className="text-center mb-2">
           <h1
             className={`
-              text-[17vw]
-              sm:text-[18vw]
-              md:text-[16vw]
-              lg:text-[17vw]
-              py-4
-              font-extrabold
-              text-white
-              leading-none
-              whitespace-nowrap
-              mx-auto
+              text-[14vw] sm:text-[18vw] md:text-[16vw] lg:text-[17vw]
+              py-4 font-extrabold text-white leading-none whitespace-nowrap mx-auto
               ${isVisible ? "title-enter" : ""}
             `}
           >
@@ -245,81 +158,61 @@ export default function Project() {
           </h1>
         </div>
 
-        {/* Grid */}
-        <div className="px-6 md:px-12">
-          <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 gap-10 relative">
+        <div className="px-6 md:px-12 ">
+          <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {projects.map((project, index) => (
-              <EnterAnimation key={index} disableScale={isMobileScreen}>
+              <EnterAnimation key={index}>
+                {/* 1. OUTER CARD: This handles the pinning */}
                 <div
-                  className={`project-card card-enter card-enter--${index} min-w-0 w-full lg:relative`}
+                  className={`project-card card-enter card-enter--${index} min-w-0`}
                 >
-                  <div
-                    className="
-                      group
-                      bg-black
-                      border
-                      border-white/10
-                      rounded-3xl
-                      overflow-hidden
-                      hover:-translate-y-2
-                      hover:border-white/20
-                      transition-all
-                      duration-500
-                    "
-                  >
-                    {/* Image */}
-                    <div className="overflow-hidden h-[220px]">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="
-                          w-full
-                          h-full
-                          object-fill
-                          object-center
-                          group-hover:scale-110
-                          transition-transform
-                          duration-700
-                        "
-                      />
-                    </div>
-
-                    {/* Content */}
-                    <div className="px-3 py-2">
-                      <h3 className="text-lg font-bold mb-3 text-white">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-gray-600 leading-relaxed mb-5">
-                        {project.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tech.map((item, i) => (
-                          <span
-                            key={i}
-                            className="
-                              px-3 py-1 text-sm rounded-full
-                              bg-white/10 border border-white/10
-                            "
-                          >
-                            {item}
-                          </span>
-                        ))}
+                  {/* 2. INNER WRAPPER: This handles the smooth GSAP scale/opacity */}
+                  <div className="card-scale-wrapper w-full h-full">
+                    {/* 3. VISUAL CARD: Your original layout/styles */}
+                    <div
+                      className="
+                        group bg-black border border-white/10 rounded-3xl overflow-hidden
+                        hover:-translate-y-2 hover:border-white/20 transition-all duration-500
+                      "
+                    >
+                      {/* Project Image */}
+                      <div className="overflow-hidden h-[220px]">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-fill object-center group-hover:scale-110 transition-transform duration-700"
+                        />
                       </div>
 
-                      <div className="flex gap-4">
-                        <a
-                          href={project.live}
-                          className="
-                            px-5 py-3 mb-3 rounded-full
-                            bg-white text-black
-                            hover:scale-105
-                            transition-all
-                          "
-                        >
-                          Live Demo
-                        </a>
+                      {/* Card Content */}
+                      <div className="px-3 py-2">
+                        <h3 className="text-lg font-bold mb-3 text-white">
+                          {project.title}
+                        </h3>
+
+                        <p className="text-gray-600 leading-relaxed mb-5">
+                          {project.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.tech.map((item, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/10"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex gap-4">
+                          <a
+                            href={project.live}
+                            className="px-5 py-3 mb-3 rounded-full bg-white text-black hover:scale-105 transition-all"
+                          >
+                            Live Demo
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -331,4 +224,19 @@ export default function Project() {
       </div>
     </div>
   );
+}
+
+function useInjectStyles(css) {
+  useEffect(() => {
+    const id = "project-page-animations";
+    if (document.getElementById(id)) return;
+    const style = document.createElement("style");
+    style.id = id;
+    style.textContent = css;
+    document.head.appendChild(style);
+    return () => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    };
+  }, []);
 }

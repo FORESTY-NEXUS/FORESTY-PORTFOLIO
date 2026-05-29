@@ -36,7 +36,7 @@ export default function Front() {
   const mobileTreeY = useTransform(
     sceneProgress,
     [0, 0.18, 0.42, 0.72],
-    [190, 850, 1200, 1380],
+    [190, 600, 800, 1020],
   );
   const mobileTreeScale = useTransform(
     sceneProgress,
@@ -84,7 +84,7 @@ export default function Front() {
 
             <motion.h1
               style={{ opacity: heroOpacity, scale: heroScale }}
-              className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-4 text-center text-[18vw] font-black tracking-[0.15em] text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
+              className="absolute top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-4 text-center text-[14vw] font-black tracking-[0.15em] text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
             >
               FORESTY
             </motion.h1>
