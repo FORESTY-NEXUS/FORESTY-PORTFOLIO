@@ -369,69 +369,72 @@ export default function Services({ progress }) {
       </div>
 
       {/* --- MOBILE & TABLET VIEW (Stacked Glassmorphic Cards) --- */}
-      <div className="relative z-20 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-[11rem] h-[27rem] bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.16),rgba(10,18,11,0.08)_42%,transparent_76%)]" />
+     <div className="relative z-20 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
+  {/* Removed the glowing radial background for a completely clean, flat environment */}
 
-        {serviceItems.map((item) => {
-          if (item.title) return null;
+  {serviceItems.map((item) => {
+    if (item.title) return null;
 
-          return (
-            <motion.div
-              key="mobile-center-logo"
-              initial={{ opacity: 0, scale: 0.85, y: 16 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="relative mb-10 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-emerald-300/80 bg-white shadow-[0_0_22px_rgba(16,185,129,0.95)]"
-            >
+    return (
+      <motion.div
+        key="mobile-center-logo"
+        initial={{ opacity: 0, scale: 0.85, y: 16 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        // Cleaned up the center logo: pure white tone, solid border, no glowing shadow
+        className="relative mb-10 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white"
+      >
+        <img
+          src={item.logo}
+          alt="Foresty"
+        className="h-full w-full rounded-full object-cover"
+        />
+      </motion.div>
+    );
+  })}
+
+  <div className="relative z-10 flex w-full flex-col gap-4">
+    {serviceItems.map((item, index) => {
+      if (!item.title) return null;
+
+      return (
+        <motion.div
+          key={`mobile-${item.title}`}
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ delay: index * 0.08, duration: 0.4 }}
+          // FLAT CARD STYLING: Solid dark background, simple border, no box-shadow
+          className="relative overflow-hidden rounded-[1.15rem] border border-[#1a2e1f] bg-[#0c130d] px-4 py-4"
+        >
+          {/* DELETED: The absolute linear-gradient background layer */}
+          {/* DELETED: The absolute inset-shadow glass layer */}
+
+          <div className="relative flex items-center gap-4">
+            {/* FLAT ICON CONTAINER: Solid background, subtle flat border, no glow */}
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#1a2e1f] bg-[#121c14]">
               <img
                 src={item.logo}
-                alt="Foresty"
-                className="h-[88%] w-[88%] rounded-full object-cover"
+                alt={item.title}
+                className={`object-contain ${item.imageClass || "h-full w-full"} ${item.logoClass || ""}`}
               />
-            </motion.div>
-          );
-        })}
+            </div>
 
-        <div className="relative z-10 flex w-full flex-col gap-4">
-          {serviceItems.map((item, index) => {
-            if (!item.title) return null;
-
-            return (
-              <motion.div
-                key={`mobile-${item.title}`}
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
-                className="relative overflow-hidden rounded-[1.15rem] border border-emerald-500/20 bg-[#040704] px-4 py-4 shadow-[0_0_0_1px_rgba(34,197,94,0.04),0_16px_35px_rgba(0,0,0,0.48)]"
-              >
-                <div className="absolute inset-y-0 left-0 w-full bg-[linear-gradient(90deg,rgba(14,58,29,0.72),rgba(11,34,18,0.38)_36%,rgba(4,7,4,0)_72%)]" />
-                <div className="absolute inset-0 rounded-[1.15rem] shadow-[inset_0_0_0_1px_rgba(34,197,94,0.08)]" />
-
-                <div className="relative flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-emerald-300/30 bg-black shadow-[0_0_0_1px_rgba(16,185,129,0.12),0_0_18px_rgba(16,185,129,0.18)]">
-                    <img
-                      src={item.logo}
-                      alt={item.title}
-                      className={`object-contain ${item.imageClass || "h-[62%] w-[62%]"} ${item.logoClass || ""}`}
-                    />
-                  </div>
-
-                  <div className="min-w-0 text-left">
-                    <h3 className="font-mono text-[1.08rem] leading-none text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 max-w-[15rem] text-[0.78rem] leading-snug text-white/75">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+            <div className="min-w-0 text-left">
+              <h3 className="font-mono text-[1.08rem] leading-none text-white">
+                {item.title}
+              </h3>
+              <p className="mt-2 max-w-[15rem] text-[0.78rem] leading-snug text-gray-400">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      );
+    })}
+  </div>
+</div>
     </div>
   );
 }

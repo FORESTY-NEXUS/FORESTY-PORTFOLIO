@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
 import Services from "./Services";
 import Navbar from "../components/Navbar";
+import MobileHeader from "../components/MobileHeader";
 
 export default function Front() {
   const ref = useRef(null);
@@ -33,16 +34,14 @@ export default function Front() {
     [0, 0.25, 0.6],
     [1, 0.94, 0.97],
   );
-  const mobileTreeY = useTransform(
-    sceneProgress,
-    [0, 0.18, 0.42, 0.72],
-    [190, 600, 800, 1020],
-  );
-  const mobileTreeScale = useTransform(
-    sceneProgress,
-    [0, 0.2, 0.48],
-    [1.1, 1.03, 0.98],
-  );
+// 1. Extend the scale range to 0.72 to match the Y-axis so they finish together.
+// 2. Use useSpring to create that "premium" non-robotic smooth feel.
+
+const rawTreeY = useTransform(sceneProgress, [0, 0.18, 0.42, 0.72], [300, 600, 700, 800]);
+const mobileTreeY = useSpring(rawTreeY, { stiffness: 100, damping: 30, mass: 0.5 });
+
+const rawTreeScale = useTransform(sceneProgress, [0, 0.2, 0.72], [1.1, 1.03, 0.77]);
+const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, mass: 0.5 });
   const treeOpacity = useTransform(sceneProgress, [0, 0.92, 1], [1, 1, 0.96]);
 
   return (
@@ -52,6 +51,7 @@ export default function Front() {
       // DESKTOP: 280vh for the scroll animation. MOBILE: height auto so it scrolls normally.
       className="relative bg-black h-auto lg:h-[280vh] lg:overflow-visible"
     >
+        <MobileHeader />
       {/* Desktop Services scroll anchor */}
       <div
         id="services-anchor"
@@ -75,16 +75,21 @@ export default function Front() {
 
           <div className="relative z-50">
             <Navbar />
+            
           </div>
 
           {/* 1. HERO SECTION (Text & Tree) */}
           {/* MOBILE: Takes exactly 1 screen height. DESKTOP: Sits absolute behind Services. */}
           <div className="relative flex h-[100svh] w-full items-center justify-center overflow-hidden lg:absolute lg:inset-0 lg:h-full lg:w-full">
             <Animatedglow />
+          
 
             <motion.h1
               style={{ opacity: heroOpacity, scale: heroScale }}
-              className="absolute top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-4 text-center text-[14vw] font-black tracking-[0.15em] text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
+              className="absolute top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 
+              not-lg:top-6 not-lg:tracking-wider
+              whitespace-nowrap px-4 text-center text-[17vw] font-black lg:tracking-[0.15em]
+               text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
             >
               FORESTY
             </motion.h1>

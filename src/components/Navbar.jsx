@@ -71,10 +71,10 @@ export default function Navbar() {
       {/* ================= MOBILE BOTTOM NAV ================= */}
       <nav
         className="
-  md:hidden fixed bottom-0  z-50 w-screen
+  md:hidden fixed bottom-4  z-[999] w-[90%] left-[5%]
   h-16 rounded-full border border-gray-800
   bg-black/70 backdrop-blur-xl flex items-center justify-around
-  text-white shadow-2xl
+  text-white shadow-2xl shadow-black/30 
 "
       >
         <button
