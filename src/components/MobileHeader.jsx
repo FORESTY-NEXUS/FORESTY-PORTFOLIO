@@ -3,7 +3,11 @@ export default function MobileHeader() {
  <header className="relative top-0 w-full bg-[#050A05] px-6 py-4 flex items-center justify-between lg:hidden">
       {/* Brand Name - Sharp, clean, and distinct */}
       <div className="flex items-center gap-3">
-        <img src="/public/foresty_nav_logo-removebg-preview.png" alt="Foresty Logo" className="w-12 h-12 rounded-lg object-contain   " />
+    <img
+  src="/foresty_nav_logo-removebg-preview.png"
+  alt="Foresty Logo"
+  className="w-12 h-12 rounded-lg object-contain"
+/>
       <h1 className="text-2xl text-center font-bold tracking-[0.05em] text-[#22c55e]">
         FORESTY
       </h1>
