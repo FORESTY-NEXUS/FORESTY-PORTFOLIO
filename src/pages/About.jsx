@@ -105,14 +105,11 @@ export default function About() {
               About <span className="text-forest-500">Foresty</span>
             </h2>
             <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-xl">
-              Foresty is a creative development studio specializing in building modern,
-              high-performance web applications. We transform ideas into digital experiences
-              that are not just functional, but visually stunning and user-centric.
+              Foresty is a creative development studio that designs and builds custom web applications.
+
+We create digital products that solve real problems, with a focus on clarity, performance, and craftsmanship. From internal business tools to public-facing platforms, every project is built to be reliable, efficient, and easy to use.
             </p>
-            <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-xl mt-3">
-              From academic management systems to interactive restaurants and creative love
-              platforms — we bring every vision to life with clean code and beautiful design.
-            </p>
+           
           </motion.div>
         </div>
 

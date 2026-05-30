@@ -80,7 +80,7 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
 
           {/* 1. HERO SECTION (Text & Tree) */}
           {/* MOBILE: Takes exactly 1 screen height. DESKTOP: Sits absolute behind Services. */}
-          <div className="relative flex h-[100svh] w-full items-center justify-center overflow-hidden lg:absolute lg:inset-0 lg:h-full lg:w-full">
+          <div className="relative flex h-[110svh] w-full items-center justify-center overflow-hidden lg:absolute lg:inset-0 lg:h-full lg:w-full">
             <Animatedglow />
           
 

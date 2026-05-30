@@ -237,7 +237,7 @@ export default function Services({ progress }) {
   const titleOpacity = useTransform(
     ringProgress,
     [0.1, 0.22, 0.6],
-    [0, 0.2, 0.5],
+    [0, 0.2, 1.0],
   );
 
   return (
@@ -278,6 +278,7 @@ export default function Services({ progress }) {
           tracking-[0.15em]
           px-4
           pointer-events-none
+          not-lg:top-10
         "
       >
         SERVICES
