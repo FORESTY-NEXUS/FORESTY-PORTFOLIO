@@ -86,7 +86,7 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
 
             <motion.h1
               style={{ opacity: heroOpacity, scale: heroScale }}
-              className="absolute top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 
+              className="absolute xl:top-80 top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 
               not-lg:top-6 not-lg:tracking-wider
               whitespace-nowrap px-4 text-center text-[17vw] font-black lg:tracking-[0.15em]
                text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
@@ -102,7 +102,7 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
                 scale: desktopTreeScale,
                 opacity: treeOpacity,
               }}
-              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 hidden max-h-[85vh] w-[720px] -translate-x-1/2 object-contain lg:block"
+              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 hidden  max-h-[85vh] w-[720px] -translate-x-1/2 object-contain lg:block"
             />
           </div>
 

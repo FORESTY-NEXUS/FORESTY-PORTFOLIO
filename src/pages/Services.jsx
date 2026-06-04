@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
+import { Brush, Building, Cloud, NotepadText, Settings, ShoppingCart } from "lucide-react";
 
 const serviceItems = [
   {
-    title: "React JS",
+    title: "UI/UX DESIGN",
     description: "Build dynamic user interfaces",
-    logo: "/react js logo.png",
+    logo: <Brush size={32} color="#22c55e" />,
     x: 5,
     y: 45,
     revealStart: 0.22,
@@ -15,9 +16,9 @@ const serviceItems = [
       "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
-    title: "Next.js",
-    description: "Server-side, full-stack performance",
-    logo: "/next js logo.png",
+    title: "BUSINESS WEBSITES",
+    description: "A professional online presence for your business",
+    logo: <Building size={32} color="#22c55e" />,
     x: -7,
     y: 73,
     revealStart: 0.26,
@@ -26,10 +27,10 @@ const serviceItems = [
       "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
-    title: "Tailwind CSS",
-    description: "Rapid, utility-first responsive styling",
-    logo: "/tailwind-css-logo.png",
-    x: 32,
+    title: "Ecommerce Solutions",
+    description: "Custom online stores to boost your sales",
+    logo: <ShoppingCart size={32} color="#22c55e" />,
+    x: 28,
     y: 28,
     revealStart: 0.3,
     entryX: -22,
@@ -47,9 +48,9 @@ const serviceItems = [
     textClass: "left-1/2 top-[-5.5rem] w-44 -translate-x-1/2 text-center",
   },
   {
-    title: "Node.js",
-    description: "High-performance JS servers",
-    logo: "/NODE JS LOGO.png",
+    title: "SaaS web Applications",
+    description: "Scalable software solutions tailored to your needs",
+    logo: <Cloud size={32} color="#22c55e" />,
     logoClass: "rounded-full object-cover",
     imageClass: "h-[62%] w-[62%]",
     x: 70,
@@ -60,9 +61,9 @@ const serviceItems = [
       "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
-    title: "Express.js",
-    description: "Fast, minimal web framework",
-    logo: "/express-js.png",
+    title: "Landing Pages",
+    description: "High-converting pages to grow your audience",
+    logo: <NotepadText size={32} color="#22c55e" />,
     imageClass: "h-[60%] w-[60%]",
     x: 94,
     y: 45,
@@ -72,16 +73,16 @@ const serviceItems = [
       "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
-    title: "MongoDB",
-    description: "Scalable NoSQL database",
-    logo: "/mongodb logo.svg",
+    title: "website maintenance",
+    description: "Ongoing support and updates for your website",
+    logo: <Settings size={32} color="#22c55e"/>,
     imageClass: "h-[60%] w-[60%]",
     x: 107,
     y: 73,
     revealStart: 0.46,
     entryX: 26,
     textClass:
-      "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
+      "left-[calc(100%+1.25rem)] top-1/2 w-35 -translate-y-1/2 text-left",
   },
 ];
 
@@ -167,22 +168,30 @@ function ServiceNode({ item, progress, containerDimensions }) {
           <div
             className="
             flex h-20 w-20 items-center justify-center rounded-full
-            border border-green-300/70 bg-transparent text-green-100
+            border border-green-300/70 bg-white text-green-100
             shadow-[0_0_30px_rgba(74,222,128,0.18)]
             sm:h-24 sm:w-24
           "
           >
             <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
-            <img
-              src={item.logo}
-              alt={item.title || "Logo"}
-              className={`relative z-10 object-contain ${item.imageClass || "h-[72%] w-[72%]"} ${item.logoClass || ""}`}
-            />
+            {React.isValidElement(item.logo) ? (
+              <div className="relative z-10 flex items-center justify-center h-full w-full">
+                {React.cloneElement(item.logo, {
+                  className: `${item.imageClass || "h-[62%] w-[62%]"} ${item.logoClass || ""}`,
+                })}
+              </div>
+            ) : (
+              <img
+                src={item.logo}
+                alt={item.title || "Logo"}
+                className={`relative z-10 object-contain ${item.imageClass || "h-[72%] w-[72%]"} ${item.logoClass || ""}`}
+              />
+            )}
           </div>
 
           {item.title && (
             <div className={`absolute text-white/90 ${item.textClass}`}>
-              <p className="text-xl font-semibold text-white sm:text-[1.65rem]">
+              <p className="text-xl font-semibold text-white sm:text-[1.5rem]">
                 {item.title}
               </p>
               <p className="mt-1 text-sm leading-snug text-white/75 sm:text-base">
@@ -270,7 +279,7 @@ export default function Services({ progress }) {
           md:text-[16vw]
           lg:text-[17vw]
           font-black
-          text-white
+          text-white/15
           select-none
           z-0
           text-center
