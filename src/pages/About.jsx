@@ -142,29 +142,47 @@ We create digital products that solve real problems, with a focus on clarity, pe
         </motion.div>
 
         {/* Tech stack summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.9, duration: 0.6 }}
-          className="mt-16 text-center"
+      {/* Tech stack summary */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-50px" }}
+  transition={{ delay: 0.4, duration: 0.6 }}
+  className="mt-16 text-center relative z-30 pointer-events-auto"
+>
+  <h3 className="text-xl md:text-2xl font-bold text-white mb-6">Our Tech Stack</h3>
+  <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+    {['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Framer Motion', 'GSAP','Lenis','typescript','Supa-base','Figma'].map(
+      (tech, i) => (
+        <motion.span
+          key={tech}
+          // Native clean entrance animation sequence
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ 
+            delay: i * 0.02, 
+            duration: 0.5,
+            ease: "easeOut"
+          }}
+          
+          // Smooth spring hover animation
+          whileHover={{ 
+            scale: 1.08,
+            borderColor: "#22c55e", 
+            color: "#22c55e",
+            backgroundColor: "rgba(34, 197, 94, 0.15)",
+          }}
+          
+          // Explicitly removed "transition-all duration-300" to eliminate stuttering
+          className="px-4 py-2 rounded-full border border-forest-500/30 text-sm text-gray-300 bg-forest-900/50 cursor-pointer select-none"
         >
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-6">Our Tech Stack</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Framer Motion', 'GSAP'].map(
-              (tech, i) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 1 + i * 0.05 }}
-                  className="px-4 py-2 rounded-full border border-forest-500/30 text-sm text-gray-300 bg-forest-900/50 hover:border-forest-500 hover:text-forest-500 transition-all duration-300 cursor-default"
-                >
-                  {tech}
-                </motion.span>
-              )
-            )}
-          </div>
-        </motion.div>
+          {tech}
+        </motion.span>
+      )
+    )}
+  </div>
+</motion.div>
       </div>
     </section>
   );

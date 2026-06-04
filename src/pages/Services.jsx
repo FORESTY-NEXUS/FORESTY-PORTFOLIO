@@ -23,8 +23,7 @@ const serviceItems = [
     y: 73,
     revealStart: 0.26,
     entryX: -28,
-    textClass:
-      "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
+  textClass: "right-[calc(100%+0.75rem)] top-1/2 w-40 -translate-y-1/2 text-right",
   },
   {
     title: "Ecommerce Solutions",
@@ -87,24 +86,7 @@ const serviceItems = [
 ];
 
 function ServiceNode({ item, progress, containerDimensions }) {
-  const nodeOpacity = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.08],
-    [0, 1],
-  );
-  const nodeScale = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.1],
-    [0.7, 1],
-  );
-  const nodeX = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.12],
-    [item.entryX, 0],
-  );
-
   // The SVG ring preserves its aspect ratio (viewBox 1000x780).
-  // The percentages (item.x, item.y) were handcrafted on a specific container aspect ratio.
   const AUTHORED_WIDTH = 1220;
   const AUTHORED_HEIGHT = 1040;
   const VIEWBOX_WIDTH = 1000;
@@ -147,6 +129,29 @@ function ServiceNode({ item, progress, containerDimensions }) {
   const realX = currentOffsetX + (viewBoxX / VIEWBOX_WIDTH) * currentSvgWidth;
   const realY = currentOffsetY + (viewBoxY / VIEWBOX_HEIGHT) * currentSvgHeight;
 
+  // --- THE FIX: Calculate the relative scale ratio for laptop screens ---
+  const visualScale = currentScale / authScale;
+
+  const nodeOpacity = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.08],
+    [0, 1],
+  );
+  
+  // Multiply our final animation scale by the visual scale ratio
+  const nodeScale = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.1],
+    [0.7 * visualScale, visualScale],
+  );
+  
+  // Scale down entry translation offset so elements don't fly in from off-screen bounds
+  const nodeX = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.12],
+    [item.entryX * visualScale, 0],
+  );
+
   return (
     <div
       style={{
@@ -165,14 +170,19 @@ function ServiceNode({ item, progress, containerDimensions }) {
         }}
       >
         <div className="relative">
-          <div
-            className="
-            flex h-20 w-20 items-center justify-center rounded-full
-            border border-green-300/70 bg-white text-green-100
-            shadow-[0_0_30px_rgba(74,222,128,0.18)]
-            sm:h-24 sm:w-24
-          "
-          >
+         <div
+  className="
+    flex h-20 w-20 items-center justify-center rounded-full
+    
+    border-2 border-green-500 
+    /* This adds a soft secondary outer green ring accent */
+    ring-4 ring-green-500/20 
+    bg-white text-green-600
+    shadow-[0_0_20px_rgba(34,197,94,0.3)]
+    sm:h-24 sm:w-24
+    relative
+  "
+>
             <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
             {React.isValidElement(item.logo) ? (
               <div className="relative z-10 flex items-center justify-center h-full w-full">
@@ -242,7 +252,6 @@ export default function Services({ progress }) {
     [0, 0.8, 0],
   );
 
-  // Adjusted opacity for the background text to make sure mobile text is readable over it
   const titleOpacity = useTransform(
     ringProgress,
     [0.1, 0.22, 0.6],
@@ -261,11 +270,9 @@ export default function Services({ progress }) {
         lg:inset-0
         lg:h-screen
         aspect-ratio: 1/1
-      
-        
-        "
+      "
     >
-      {/* BACKGROUND TEXT - Fixed position so it stays centered behind scrolling mobile content */}
+      {/* BACKGROUND TEXT */}
       <motion.h1
         style={{ opacity: titleOpacity }}
         className="
@@ -280,6 +287,7 @@ export default function Services({ progress }) {
           lg:text-[17vw]
           font-black
           text-white/15
+          not-lg:text-white
           select-none
           z-0
           text-center
@@ -378,73 +386,71 @@ export default function Services({ progress }) {
         </motion.div>
       </div>
 
-      {/* --- MOBILE & TABLET VIEW (Stacked Glassmorphic Cards) --- */}
-     <div className="relative z-20 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
-  {/* Removed the glowing radial background for a completely clean, flat environment */}
-
-  {serviceItems.map((item) => {
-    if (item.title) return null;
-
-    return (
-      <motion.div
-        key="mobile-center-logo"
-        initial={{ opacity: 0, scale: 0.85, y: 16 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        // Cleaned up the center logo: pure white tone, solid border, no glowing shadow
-        className="relative mb-10 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white"
-      >
-        <img
-          src={item.logo}
-          alt="Foresty"
-        className="h-full w-full rounded-full object-cover"
-        />
-      </motion.div>
-    );
-  })}
-
-  <div className="relative z-10 flex w-full flex-col gap-4">
-    {serviceItems.map((item, index) => {
-      if (!item.title) return null;
-
-      return (
-        <motion.div
-          key={`mobile-${item.title}`}
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ delay: index * 0.08, duration: 0.4 }}
-          // FLAT CARD STYLING: Solid dark background, simple border, no box-shadow
-          className="relative overflow-hidden rounded-[1.15rem] border border-[#1a2e1f] bg-[#0c130d] px-4 py-4"
-        >
-          {/* DELETED: The absolute linear-gradient background layer */}
-          {/* DELETED: The absolute inset-shadow glass layer */}
-
-          <div className="relative flex items-center gap-4">
-            {/* FLAT ICON CONTAINER: Solid background, subtle flat border, no glow */}
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#1a2e1f] bg-[#121c14]">
+      {/* --- MOBILE & TABLET VIEW --- */}
+      <div className="relative z-20 flex w-full flex-col items-center px-7 pt-14 pb-52 lg:hidden">
+        {serviceItems.map((item) => {
+          if (item.title) return null;
+          return (
+            <motion.div
+              key="mobile-center-logo"
+              initial={{ opacity: 0, scale: 0.85, y: 16 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="relative mb-10 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-2 border-white bg-white"
+            >
               <img
                 src={item.logo}
-                alt={item.title}
-                className={`object-contain ${item.imageClass || "h-full w-full"} ${item.logoClass || ""}`}
+                alt="Foresty"
+                className="h-full w-full rounded-full object-cover"
               />
-            </div>
+            </motion.div>
+          );
+        })}
 
-            <div className="min-w-0 text-left">
-              <h3 className="font-mono text-[1.08rem] leading-none text-white">
-                {item.title}
-              </h3>
-              <p className="mt-2 max-w-[15rem] text-[0.78rem] leading-snug text-gray-400">
-                {item.description}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      );
-    })}
-  </div>
+        <div className="relative z-10 flex w-full flex-col gap-4">
+          {serviceItems.map((item, index) => {
+            if (!item.title) return null;
+            return (
+              <motion.div
+                key={`mobile-${item.title}`}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: index * 0.08, duration: 0.4 }}
+                className="relative overflow-hidden rounded-[1.15rem] border border-[#1a2e1f] bg-[#0c130d] px-4 py-4"
+              >
+                <div className="relative flex items-center gap-4">
+                {/* FIXED ICON CONTAINER FOR MOBILE */}
+<div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#1a2e1f] bg-[#121c14]">
+  {React.isValidElement(item.logo) ? (
+    // By overriding the className completely here, every icon will be perfectly uniform
+    React.cloneElement(item.logo, {
+      className: "h-6 w-6 text-green-400 stroke-[2]" 
+    })
+  ) : (
+    <img
+      src={item.logo}
+      alt={item.title}
+      className="h-6 w-6 object-contain rounded-full"
+    />
+  )}
 </div>
+
+                  <div className="min-w-0 text-left">
+                    <h3 className="font-mono text-[1.08rem] leading-none text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 max-w-[15rem] text-[0.78rem] leading-snug text-gray-400">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
