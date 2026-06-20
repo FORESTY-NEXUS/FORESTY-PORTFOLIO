@@ -13,11 +13,11 @@ const projects = [
     live: "https://foresty-academic.vercel.app",
   },
   {
-    title: "FORESTY RESTURANT",
-    image: "/FORESTY RESTURAAANt.png",
+    title: "FORESTY ZIAQA_HUB",
+    image: "/zaiqa-hub.jpeg",
     description: "A WEBSITE FOR RESTURANTS TO MAKE THIER RESTURANT DEIGITAL.",
     tech: ["React", "JAVASCRIPT", "NEXT JS"],
-    live: "https://foresty-resturant.netlify.app",
+    live: "https://foresty-resturant.vercel.app",
   },
   {
     title: "FORESTY LOVE",
