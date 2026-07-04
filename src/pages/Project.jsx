@@ -11,6 +11,7 @@ const projects = [
     description: "FULLY DIGITTILIZE SYSTEM FOR ACEDEMIES TO MAINTAIN THIER ACEDMY",
     tech: ["NEXT JS", "NODE JS", "MONGO DB"],
     live: "https://foresty-academic.vercel.app",
+    target: "_blank",
   },
   {
     title: "FORESTY ZIAQA_HUB",
@@ -18,13 +19,15 @@ const projects = [
     description: "A WEBSITE FOR RESTURANTS TO MAKE THIER RESTURANT DEIGITAL.",
     tech: ["React", "JAVASCRIPT", "NEXT JS"],
     live: "https://foresty-resturant.vercel.app",
+    target: "_blank",
   },
   {
-    title: "FORESTY LOVE",
-    image: "/foresty-love.netlify.app.png",
-    description: "A VALENTINE THEME WEBSITE FOR COUPLES TO EXPRESS THEIR LOVE.",
+    title: "FORESTY NAILS",
+    image: "/Frame 2.jpeg",
+  description: "A WEBSITE FOR NAIL SALONS TO SHOWCASE THEIR SERVICES AND ITEMS.",
     tech: ["React", "JAVASCRIPT", "Tailwind"],
-    live: "https://foresty-love.netlify.app",
+    live: "https://lily-nails.vercel.app",
+    target: "_blank",
   },
 ];
 
@@ -155,7 +158,7 @@ export default function Project() {
                           </div>
 
                           <div className="flex gap-4">
-                            <a href={project.live} className="px-5 py-3 mb-3 rounded-full bg-white text-black hover:scale-105 transition-all">
+                            <a href={project.live} target="_blank" className="px-5 py-3 mb-3 rounded-full bg-white text-black hover:scale-105 transition-all">
                               Live Demo
                             </a>
                           </div>
