@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check } from "lucide-react";
 
@@ -50,7 +50,19 @@ const pricingPlans = [
 
 export default function Pricing() {
   const sectionRef = useRef(null);
+  const scrollRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const scrollLeft = el.scrollLeft;
+    const cardWidth = el.querySelector(':scope > div')?.offsetWidth || 1;
+    const gap = 24;
+    const index = Math.round(scrollLeft / (cardWidth + gap));
+    setActiveIndex(Math.min(index, pricingPlans.length - 1));
+  }, []);
 
   return (
     <section
@@ -87,10 +99,15 @@ export default function Pricing() {
         </motion.h2>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-5xl">
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex md:grid md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-5xl overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth pb-4 pt-6 pl-[12vw] md:pl-0 pr-[12vw] md:pr-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {pricingPlans.map((plan, index) => (
+            <div key={plan.id} className="w-[65vw] md:w-full shrink-0 snap-center">
             <motion.div
-              key={plan.id}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.15 }}
@@ -141,7 +158,44 @@ export default function Pricing() {
                 Choose Plan
               </a>
             </motion.div>
+            </div>
           ))}
+        </div>
+
+        {/* Swipe Indicator - Mobile Only */}
+        <div className="flex flex-col items-center gap-3 mt-6 md:hidden">
+          <div className="flex gap-1.5">
+            {pricingPlans.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex
+                    ? 'w-6 bg-[#2ecc71]'
+                    : 'w-1.5 bg-white/20'
+                }`}
+              />
+            ))}
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className="text-white/30 text-xs tracking-wider uppercase flex items-center gap-2"
+          >
+            <motion.span
+              animate={{ x: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            >
+              ←
+            </motion.span>
+            Swipe to compare
+            <motion.span
+              animate={{ x: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            >
+              →
+            </motion.span>
+          </motion.p>
         </div>
       </div>
     </section>

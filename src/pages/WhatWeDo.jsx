@@ -1,42 +1,26 @@
-import { useRef, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, X } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+const cardData = [
+  { id: 'do', title: 'What We Do' },
+  { id: 'dont', title: "What We Don't Do" },
+];
 
 export default function WhatWeDo() {
   const sectionRef = useRef(null);
+  const scrollRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.matchMedia({
-        "(max-width: 768px)": () => {
-          const cards = gsap.utils.toArray(".wwd-card-stack");
-          cards.forEach((card, i) => {
-            const innerCard = card.querySelector(".wwd-scale-wrapper");
-            if (i !== cards.length - 1 && innerCard) {
-              gsap.to(innerCard, {
-                scale: 0.85,
-                opacity: 0.3,
-                transformOrigin: "top center",
-                ease: "none",
-                scrollTrigger: {
-                  trigger: cards[i + 1],
-                  start: "top 60%",
-                  end: "top 10%",
-                  scrub: true,
-                },
-              });
-            }
-          });
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const scrollLeft = el.scrollLeft;
+    const cardWidth = el.querySelector(':scope > div')?.offsetWidth || 1;
+    const gap = 24;
+    const index = Math.round(scrollLeft / (cardWidth + gap));
+    setActiveIndex(Math.min(index, cardData.length - 1));
   }, []);
 
   return (
@@ -87,11 +71,16 @@ export default function WhatWeDo() {
           we have a tailored solution to help it grow online.
         </motion.p>
 
-        {/* Cards Container */}
-        <div className="flex flex-col md:flex-row gap-6 w-full max-w-4xl relative z-10">
+        {/* Cards Container / Carousel */}
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex md:flex-row gap-6 w-full max-w-4xl relative z-10 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scroll-smooth pb-4 pt-4 pl-[12vw] md:pl-0 pr-[12vw] md:pr-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {/* Left Card: What We Do */}
-          <div className="sticky top-[15vh] md:static w-full wwd-card-stack">
-            <div className="wwd-scale-wrapper w-full h-full">
+          <div className="w-[65vw] md:w-1/2 shrink-0 snap-center">
+            <div className="w-full h-full">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -119,8 +108,8 @@ export default function WhatWeDo() {
           </div>
 
           {/* Right Card: What We Don't Do */}
-          <div className="sticky top-[15vh] md:static w-full wwd-card-stack">
-            <div className="wwd-scale-wrapper w-full h-full">
+          <div className="w-[75vw] md:w-1/2 shrink-0 snap-center">
+            <div className="w-full h-full">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -146,6 +135,42 @@ export default function WhatWeDo() {
               </motion.div>
             </div>
           </div>
+        </div>
+
+        {/* Swipe Indicator - Mobile Only */}
+        <div className="flex flex-col items-center gap-3 mt-6 md:hidden">
+          <div className="flex gap-1.5">
+            {cardData.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex
+                    ? 'w-6 bg-[#2ecc71]'
+                    : 'w-1.5 bg-white/20'
+                }`}
+              />
+            ))}
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className="text-white/30 text-xs tracking-wider uppercase flex items-center gap-2"
+          >
+            <motion.span
+              animate={{ x: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            >
+              ←
+            </motion.span>
+            Swipe
+            <motion.span
+              animate={{ x: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            >
+              →
+            </motion.span>
+          </motion.p>
         </div>
       </div>
     </section>
