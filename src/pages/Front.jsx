@@ -34,14 +34,30 @@ export default function Front() {
     [0, 0.25, 0.6],
     [1, 0.94, 0.97],
   );
-// 1. Extend the scale range to 0.72 to match the Y-axis so they finish together.
-// 2. Use useSpring to create that "premium" non-robotic smooth feel.
+  // 1. Extend the scale range to 0.72 to match the Y-axis so they finish together.
+  // 2. Use useSpring to create that "premium" non-robotic smooth feel.
 
-const rawTreeY = useTransform(sceneProgress, [0, 0.18, 0.42, 0.72], [300, 600, 700, 800]);
-const mobileTreeY = useSpring(rawTreeY, { stiffness: 100, damping: 30, mass: 0.5 });
+  const rawTreeY = useTransform(
+    sceneProgress,
+    [0, 0.18, 0.42, 0.72],
+    [300, 600, 700, 800],
+  );
+  const mobileTreeY = useSpring(rawTreeY, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.5,
+  });
 
-const rawTreeScale = useTransform(sceneProgress, [0, 0.2, 0.72], [1.1, 1.03, 0.77]);
-const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, mass: 0.5 });
+  const rawTreeScale = useTransform(
+    sceneProgress,
+    [0, 0.2, 0.72],
+    [1.1, 1.03, 0.77],
+  );
+  const mobileTreeScale = useSpring(rawTreeScale, {
+    stiffness: 100,
+    damping: 30,
+    mass: 0.5,
+  });
   const treeOpacity = useTransform(sceneProgress, [0, 0.92, 1], [1, 1, 0.96]);
 
   return (
@@ -51,7 +67,7 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
       // DESKTOP: 280vh for the scroll animation. MOBILE: height auto so it scrolls normally.
       className="relative bg-black h-auto lg:h-[280vh] lg:overflow-visible"
     >
-        <MobileHeader />
+      <MobileHeader />
       {/* Desktop Services scroll anchor */}
       <div
         id="services-anchor"
@@ -75,14 +91,12 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
 
           <div className="relative z-50">
             <Navbar />
-            
           </div>
 
           {/* 1. HERO SECTION (Text & Tree) */}
           {/* MOBILE: Takes exactly 1 screen height. DESKTOP: Sits absolute behind Services. */}
           <div className="relative flex h-[110svh] w-full items-center justify-center overflow-hidden lg:absolute lg:inset-0 lg:h-full lg:w-full">
             <Animatedglow />
-          
 
             <motion.h1
               style={{ opacity: heroOpacity, scale: heroScale }}
@@ -102,8 +116,46 @@ const mobileTreeScale = useSpring(rawTreeScale, { stiffness: 100, damping: 30, m
                 scale: desktopTreeScale,
                 opacity: treeOpacity,
               }}
-              className="pointer-events-none absolute -bottom-10 left-1/2 z-40 hidden  max-h-[85vh] w-[720px] -translate-x-1/2 object-contain lg:block"
+              className="pointer-events-none absolute -bottom-4 left-1/2 z-40 hidden  max-h-[85vh] w-[720px] -translate-x-1/2 object-contain lg:block"
             />
+
+            {/* Hero Tagline & CTA Buttons */}
+            <motion.div
+              style={{ opacity: heroOpacity }}
+              className="absolute top-[28%] left-0 z-[80] flex w-full flex-col items-center justify-between gap-5 px-4
+                         lg:bottom-[6%] lg:flex-row lg:items-end lg:px-12 xl:px-24"
+            >
+              <p
+                className="max-w-[520px] text-center text-sm leading-relaxed tracking-wide text-white/85
+                            mix-blend-overlay sm:text-base md:text-[15px] lg:text-left lg:text-base"
+              >
+                A creative studio engineering<br></br> high-performance web
+                applications and<br></br> premium UI/UX experiences.
+              </p>
+
+              <div className="flex items-center gap-3 sm:gap-22 lg:flex-col lg:items-end lg:gap-4">
+                <a
+                  href="#projects"
+                  className="rounded-xl bg-[#07893d] px-6 py-2.5 text-center text-sm font-semibold text-white
+                             shadow-[0_0_20px_rgba(46,204,113,0.3)] transition-all duration-300
+                             hover:bg-[#27ae60] hover:shadow-[0_0_28px_rgba(46,204,113,0.45)]
+                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-48 hover:scale-105 cursor-pointer"
+                >
+                  View Our Work
+                </a>
+                <a
+                  onClick={() =>
+                    window.open("https://wa.me/923195403032", "_blank")
+                  }
+                  className="rounded-xl border border-[#2ecc71] px-6 py-2.5 text-center text-sm font-semibold text-white
+                             transition-all duration-300 hover:bg-[#2ecc71]/10
+                             hover:shadow-[0_0_20px_rgba(46,204,113,0.15)]
+                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-48 cursor-pointer hover:scale-105"
+                >
+                  Start a Project
+                </a>
+              </div>
+            </motion.div>
           </div>
 
           {/* 2. SERVICES SECTION */}
