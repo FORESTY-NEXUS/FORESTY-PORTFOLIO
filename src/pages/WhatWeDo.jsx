@@ -25,8 +25,8 @@ export default function WhatWeDo() {
                 ease: "none",
                 scrollTrigger: {
                   trigger: cards[i + 1],
-                  start: "top 85%",
-                  end: "top 15%",
+                  start: "top 60%",
+                  end: "top 10%",
                   scrub: true,
                 },
               });
@@ -96,7 +96,7 @@ export default function WhatWeDo() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="h-full flex-1 rounded-2xl bg-[#0a0a0a] border border-[#2ecc71]/20 p-8 md:p-10 shadow-[0_0_30px_rgba(46,204,113,0.05)] flex flex-col items-start gap-6 hover:border-[#2ecc71]/40 transition-colors duration-300"
+                className="h-full flex-1 rounded-2xl bg-black md:bg-[#0a0a0a] border border-[#2ecc71]/20 p-8 md:p-10 shadow-[0_0_30px_rgba(46,204,113,0.05)] flex flex-col items-start gap-6 hover:border-[#2ecc71]/40 transition-colors duration-300"
               >
                 <h3 className="text-2xl font-bold text-white mb-2">What We Do</h3>
                 <ul className="flex flex-col gap-4">
@@ -125,7 +125,7 @@ export default function WhatWeDo() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="h-full flex-1 rounded-2xl bg-[#0a0a0a] border border-red-500/20 p-8 md:p-10 shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col items-start gap-6 hover:border-red-500/40 transition-colors duration-300"
+                className="h-full flex-1 rounded-2xl bg-black md:bg-[#0a0a0a] border border-red-500/20 p-8 md:p-10 shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col items-start gap-6 hover:border-red-500/40 transition-colors duration-300"
               >
                 <h3 className="text-2xl font-bold text-white mb-2">What We Don't Do</h3>
                 <ul className="flex flex-col gap-4">

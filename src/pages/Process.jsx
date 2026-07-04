@@ -98,8 +98,8 @@ export default function Process() {
                 ease: "none",
                 scrollTrigger: {
                   trigger: cards[i + 1],
-                  start: "top 85%",
-                  end: "top 15%",
+                  start: "top 60%",
+                  end: "top 10%",
                   scrub: true,
                 },
               });
@@ -157,7 +157,7 @@ export default function Process() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                    className="h-full group relative rounded-2xl bg-[#0a0a0a] border border-white/5 p-8 flex flex-col items-center text-center hover:border-[#2ecc71]/30 hover:bg-[#0c140c] transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_30px_rgba(46,204,113,0.05)] overflow-hidden"
+                    className="h-full group relative rounded-2xl bg-black md:bg-[#0a0a0a] border border-white/5 p-8 flex flex-col items-center text-center hover:border-[#2ecc71]/30 hover:bg-[#0c140c] transition-all duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_30px_rgba(46,204,113,0.05)] overflow-hidden"
                   >
                     {/* Background Numbering Watermark */}
                     <span className="absolute -bottom-4 -right-2 text-[100px] font-black text-white/[0.02] group-hover:text-[#2ecc71]/[0.05] transition-colors duration-500 pointer-events-none select-none">

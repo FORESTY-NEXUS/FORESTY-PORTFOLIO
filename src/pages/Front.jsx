@@ -86,7 +86,7 @@ export default function Front() {
               scale: mobileTreeScale,
               opacity: treeOpacity,
             }}
-            className="pointer-events-none relative left-1/2 top-0 z-[70] w-[120%] -translate-x-1/2 object-contain lg:hidden"
+            className="pointer-events-none relative left-1/2 -mt-16 md:-mt-20 z-[70] w-[120%] -translate-x-1/2 object-contain lg:hidden"
           />
 
           <div className="relative z-50">
@@ -100,9 +100,8 @@ export default function Front() {
 
             <motion.h1
               style={{ opacity: heroOpacity, scale: heroScale }}
-              className="absolute xl:top-80 top-50 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 
-              not-lg:top-6 not-lg:tracking-wider
-              whitespace-nowrap px-4 text-center text-[17vw] font-black lg:tracking-[0.15em]
+              className="absolute top-[18%] md:top-[25%] lg:top-[30%] xl:top-80 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 
+              tracking-wider whitespace-nowrap px-4 text-center text-[17vw] font-black lg:tracking-[0.15em]
                text-white select-none sm:text-[18vw] md:text-[16vw] lg:text-[17vw]"
             >
               FORESTY
