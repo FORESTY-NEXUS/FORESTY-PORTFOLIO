@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Animatedglow from "../components/Animatedglow";
 import EnterAnimation from "../components/EnterAnimation";
 import gsap from "gsap";
@@ -6,11 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const projects = [
   {
-    title: "FORESTY ACEDEMICS",
-    image: "/foresty-acedemics-login.png",
-    description: "FULLY DIGITTILIZE SYSTEM FOR ACEDEMIES TO MAINTAIN THIER ACEDMY",
-    tech: ["NEXT JS", "NODE JS", "MONGO DB"],
-    live: "https://foresty-academic.vercel.app",
+    title: "FORESTY PERFUMES",
+    image: "/mashab perfumes.png",
+    description: "A WEBSITE FOR PERFUMES STORE TO SHOWCASE THIER PERFUMES ONLINE.",
+    tech: ["NEXT JS", "TYPESCRIPT", "Tailwind"],
+    live: "https://mashab-perfumes-k53u.vercel.app",
     target: "_blank",
   },
   {
@@ -24,48 +24,62 @@ const projects = [
   {
     title: "FORESTY NAILS",
     image: "/Frame 2.jpeg",
-  description: "A WEBSITE FOR NAIL SALONS TO SHOWCASE THEIR SERVICES AND ITEMS.",
+    description: "A WEBSITE FOR NAIL SALONS TO SHOWCASE THEIR SERVICES AND ITEMS.",
     tech: ["React", "JAVASCRIPT", "Tailwind"],
     live: "https://lily-nails.vercel.app",
     target: "_blank",
   },
+  {
+    title: "FORESTY ACEDEMICS",
+    image: "/foresty-acedemics-login.png",
+    description: "FULLY DIGITTILIZE SYSTEM FOR ACEDEMIES TO MAINTAIN THIER ACEDMY",
+    tech: ["NEXT JS", "NODE JS", "MONGO DB"],
+    live: "https://foresty-academic.vercel.app",
+    target: "_blank",
+  },
+  // Add as many cards as you want here! The code will handle them automatically.
 ];
-
-const ANIMATION_CSS = `
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .title-enter {
-    opacity: 0;
-    animation: fadeSlideUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-  }
-
-  .card-enter { opacity: 0; }
-  .card-enter.card-enter--0 { animation: fadeSlideUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both; }
-  .card-enter.card-enter--1 { animation: fadeSlideUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both; }
-  .card-enter.card-enter--2 { animation: fadeSlideUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 1s both; }
-`;
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Project() {
-  useInjectStyles(ANIMATION_CSS);
   const containerRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      
+      // 1. ENTRANCE ANIMATION (Replaces the IntersectionObserver & injected CSS)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%", // Triggers when the container is 20% into the screen
+        },
+      });
+
+      // Animate Title
+      tl.from(".project-title", {
+        opacity: 0,
+        y: 28,
+        duration: 1.4,
+        ease: "power3.out",
+      })
+      // Animate Cards dynamically using `stagger`
+      .from(".project-card", {
+        opacity: 0,
+        y: 28,
+        duration: 1.4,
+        ease: "power3.out",
+        stagger: 0.2, // <- This adds a 0.2s delay between EVERY card automatically!
+      }, "-=1"); // Starts a bit early to overlap with the title animation
+
+      // 2. SCROLL EFFECTS (Your existing mobile squeeze code)
       ScrollTrigger.matchMedia({
-        // ONLY MOBILE - Native Sticky + GSAP Squeeze
         "(max-width: 768px)": () => {
           const cards = gsap.utils.toArray(".project-card");
 
           cards.forEach((card, i) => {
             const innerCard = card.querySelector(".card-scale-wrapper");
 
-            // Shrink all cards EXCEPT the last one (the top of the stack)
             if (i !== cards.length - 1 && innerCard) {
               gsap.to(innerCard, {
                 scale: 0.85,
@@ -73,7 +87,7 @@ export default function Project() {
                 transformOrigin: "top center",
                 ease: "none",
                 scrollTrigger: {
-                  trigger: cards[i + 1], // Triggered by the NEXT card coming up
+                  trigger: cards[i + 1],
                   start: "top 85%",
                   end: "top 15%",
                   scrub: true,
@@ -82,23 +96,11 @@ export default function Project() {
             }
           });
         },
-
-        // DESKTOP (NO EFFECT)
         "(min-width: 769px)": () => {},
       });
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.2 },
-    );
-
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => containerRef.current && observer.unobserve(containerRef.current);
   }, []);
 
   return (
@@ -110,32 +112,23 @@ export default function Project() {
       <div className="relative z-10">
         <div className="text-center mb-2">
           <h1
-            className={`
-              text-[14vw] sm:text-[18vw] md:text-[16vw] lg:text-[17vw]
-              py-4 font-extrabold text-white leading-none whitespace-nowrap mx-auto
-              ${isVisible ? "title-enter" : ""}
-            `}
+            className="project-title text-[14vw] sm:text-[18vw] md:text-[16vw] lg:text-[17vw] py-4 font-extrabold text-white leading-none whitespace-nowrap mx-auto"
           >
             PROJECTS
           </h1>
         </div>
 
         <div className="px-6 md:px-12 ">
-          {/* 🚨 THE FIX: Changed to 'flex flex-col' on mobile to allow cards to overlap. Grid is only applied on 'md' and up! */}
           <div className="w-full max-w-[1400px] mx-auto flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-5">
             {projects.map((project, index) => (
               
-              /* 🚨 THE FIX: The sticky class MUST be the direct child of the flex container */
               <div key={index} className="sticky top-[15vh] md:static w-full">
                 <EnterAnimation>
-                  
-                  {/* 1. OUTER CARD (GSAP Trigger) */}
-                  <div className={`project-card card-enter card-enter--${index} min-w-0`}>
+                  {/* Notice we removed the dynamic CSS classes here, GSAP handles it! */}
+                  <div className="project-card min-w-0">
                     
-                    {/* 2. INNER WRAPPER (GSAP Scale Target) */}
                     <div className="card-scale-wrapper w-full h-full">
                       
-                      {/* 3. VISUAL CARD */}
                       <div className="group bg-black border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 hover:border-white/20 transition-all duration-500">
                         <div className="overflow-hidden h-[220px]">
                           <img
@@ -158,7 +151,7 @@ export default function Project() {
                           </div>
 
                           <div className="flex gap-4">
-                            <a href={project.live} target="_blank" className="px-5 py-3 mb-3 rounded-full bg-white text-black hover:scale-105 transition-all">
+                            <a href={project.live} target="_blank" rel="noreferrer" className="px-5 py-3 mb-3 rounded-full bg-white text-black hover:scale-105 transition-all">
                               Live Demo
                             </a>
                           </div>
@@ -175,19 +168,4 @@ export default function Project() {
       </div>
     </div>
   );
-}
-
-function useInjectStyles(css) {
-  useEffect(() => {
-    const id = "project-page-animations";
-    if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.textContent = css;
-    document.head.appendChild(style);
-    return () => {
-      const el = document.getElementById(id);
-      if (el) el.remove();
-    };
-  }, []);
 }

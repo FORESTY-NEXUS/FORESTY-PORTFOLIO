@@ -116,7 +116,7 @@ export default function WhatWeDo() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="h-full flex-1 rounded-2xl bg-black md:bg-[#0a0a0a] border border-red-500/20 p-8 md:p-10 shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col items-start gap-6 hover:border-red-500/40 transition-colors duration-300"
               >
-                <h3 className="text-2xl font-bold text-white mb-2">What We Don't Do</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">What Others Do</h3>
                 <ul className="flex flex-col gap-4">
                   {[
                     "Pre-made drag-and-drop templates",
