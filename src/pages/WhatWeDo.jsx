@@ -1,7 +1,9 @@
 import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, X } from "lucide-react";
-
+ // Adjust path as needed
+// The ../ means "go up one folder" out of 'pages', then into 'components'
+import InteractiveDots from "../components/InteractiveDots";
 const cardData = [
   { id: 'do', title: 'What We Do' },
   { id: 'dont', title: "What We Don't Do" },
@@ -29,8 +31,11 @@ export default function WhatWeDo() {
       ref={sectionRef}
       className="relative w-full bg-black py-24 px-5 md:px-10 overflow-x-clip flex flex-col items-center justify-center"
     >
+      {/* Interactive Dots Canvas Background */}
+      <InteractiveDots backgroundColor="#000000" dotColor="#2ecc71" />
+
       {/* Background Subtle Glow matching the aesthetic */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[800px] h-[400px] bg-[#2ecc71] opacity-[0.03] blur-[100px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[800px] h-[400px] bg-[#2ecc71] opacity-[0.03] blur-[100px] pointer-events-none rounded-full z-0" />
 
       <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto w-full">
         {/* Subtle Header */}
@@ -161,14 +166,14 @@ export default function WhatWeDo() {
               animate={{ x: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
             >
-              ←
+              &larr;
             </motion.span>
             Swipe
             <motion.span
               animate={{ x: [0, -8, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
             >
-              →
+              &rarr;
             </motion.span>
           </motion.p>
         </div>

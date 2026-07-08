@@ -12,6 +12,7 @@ import Footer from "./pages/Footer";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import BlobCursor from "./components/BlobCursor";
 
 function App() {
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <>
+    <BlobCursor />
       <Navbar />
       <Front />
       <WhatWeDo />
