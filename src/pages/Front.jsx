@@ -37,11 +37,11 @@ export default function Front() {
   // 1. Extend the scale range to 0.72 to match the Y-axis so they finish together.
   // 2. Use useSpring to create that "premium" non-robotic smooth feel.
 
-  const rawTreeY = useTransform(
-    sceneProgress,
-    [0, 0.18, 0.42, 0.72],
-    [300, 600, 700, 800],
-  );
+const rawTreeY = useTransform(
+  sceneProgress,
+  [0, 0.18, 0.42, 0.72],
+  [200, 420, 550, 700], // Lowered all values to lift the tree up globally
+);
   const mobileTreeY = useSpring(rawTreeY, {
     stiffness: 100,
     damping: 30,
