@@ -5,8 +5,8 @@ import { Check, X } from "lucide-react";
 // The ../ means "go up one folder" out of 'pages', then into 'components'
 import InteractiveDots from "../components/InteractiveDots";
 const cardData = [
-  { id: 'do', title: 'What We Do' },
-  { id: 'dont', title: "What We Don't Do" },
+  { id: 'do', title: 'What We Unlock' },
+  { id: 'dont', title: 'What Holds You Back' },
 ];
 
 export default function WhatWeDo() {
@@ -47,7 +47,7 @@ export default function WhatWeDo() {
         >
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
           <span className="text-[#2ecc71] text-sm md:text-base font-semibold tracking-widest uppercase">
-            What We Do
+            Built for Growth
           </span>
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
         </motion.div>
@@ -59,8 +59,8 @@ export default function WhatWeDo() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center leading-tight mb-8"
         >
-          We Build Websites <br className="hidden sm:block" />
-          That <span className="text-[#2ecc71]">Grow Your Business</span>
+          Every successful business <br className="hidden sm:block" />
+          starts with a <span className="text-[#2ecc71]">strong seed.</span>
         </motion.h2>
 
         {/* Paragraph */}
@@ -70,10 +70,9 @@ export default function WhatWeDo() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center text-gray-400 text-base md:text-lg max-w-3xl leading-relaxed mb-16"
         >
-          We design and develop high-performance custom websites for all types
-          of businesses including restaurants, salons, clinics, academies, real
-          estate, eCommerce, gyms, law firms, and more. If you have a business,
-          we have a tailored solution to help it grow online.
+          We help businesses turn attention into customers, remove repetitive work,
+          and build simple systems that keep working 24/7. Every decision is shaped
+          around more revenue, more time, and a calmer day-to-day.
         </motion.p>
 
         {/* Cards Container / Carousel */}
@@ -92,13 +91,13 @@ export default function WhatWeDo() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="h-full flex-1 rounded-2xl bg-black md:bg-[#0a0a0a] border border-[#2ecc71]/20 p-8 md:p-10 shadow-[0_0_30px_rgba(46,204,113,0.05)] flex flex-col items-start gap-6 hover:border-[#2ecc71]/40 transition-colors duration-300"
               >
-                <h3 className="text-2xl font-bold text-white mb-2">What We Do</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">What We Unlock</h3>
                 <ul className="flex flex-col gap-4">
                   {[
-                    "Custom-coded web applications",
-                    "Premium, user-centric interface design",
-                    "High-performance headless architectures",
-                    "Complex interactive animations",
+                    "More customers who are ready to act",
+                    "Bookings and orders that arrive automatically",
+                    "Less time spent repeating the same tasks",
+                    "A professional presence that builds trust",
                   ].map((point, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="mt-0.5 text-[#2ecc71] flex-shrink-0">
@@ -121,13 +120,13 @@ export default function WhatWeDo() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="h-full flex-1 rounded-2xl bg-black md:bg-[#0a0a0a] border border-red-500/20 p-8 md:p-10 shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col items-start gap-6 hover:border-red-500/40 transition-colors duration-300"
               >
-                <h3 className="text-2xl font-bold text-white mb-2">What Others Do</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">What Holds You Back</h3>
                 <ul className="flex flex-col gap-4">
                   {[
-                    "Pre-made drag-and-drop templates",
-                    "Cookie-cutter WordPress themes",
-                    "Rushed, low-quality deliverables",
-                    "Compromising on performance for speed",
+                    "Customers leaving before they can understand your offer",
+                    "Appointments and orders buried in WhatsApp chats",
+                    "Hours lost to routine questions and manual work",
+                    "A business that is invisible when people search online",
                   ].map((point, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="mt-0.5 text-[#ef4444] flex-shrink-0">

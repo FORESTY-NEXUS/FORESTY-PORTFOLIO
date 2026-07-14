@@ -15,62 +15,56 @@ import {
 const processSteps = [
   {
     id: "01",
-    title: "Research",
-    description: "Determine your needs, target audience, and business goals.",
+    title: "Listen",
+    description: "We learn how your business works and where time or sales are being lost.",
     icon: Search,
   },
   {
     id: "02",
-    title: "Propose",
-    description: "What can we do to help you succeed? We map out the strategy.",
+    title: "Plan",
+    description: "We map the clearest path to more customers and less manual work.",
     icon: Lightbulb,
   },
   {
     id: "03",
-    title: "Design",
-    description:
-      "Designing a site that stands out & makes a meaningful connection.",
+    title: "Shape",
+    description: "We make the customer journey clear, trustworthy, and easy to act on.",
     icon: PenTool,
   },
   {
     id: "04",
     title: "Build",
-    description:
-      "Putting the pieces into action to create the final working product.",
+    description: "We turn the plan into the system your customers and team will use.",
     icon: Code,
   },
   {
     id: "05",
-    title: "Write",
-    description:
-      "Crafting copy that empathizes and provides answers to your visitors.",
+    title: "Guide",
+    description: "We answer the questions customers need answered before they call.",
     icon: Edit3,
   },
   {
     id: "06",
-    title: "Revise",
-    description:
-      "Your input is critical. We ensure the site represents your company well.",
+    title: "Review",
+    description: "You stay involved and approve the details that represent your business.",
     icon: RefreshCw,
   },
   {
     id: "07",
-    title: "Approve",
-    description:
-      "Give us your thumbs up. We prepare to present your site to the world.",
+    title: "Prepare",
+    description: "We make sure every route to an order, booking, or enquiry is ready.",
     icon: ThumbsUp,
   },
   {
     id: "08",
     title: "Launch",
-    description: "Congratulations! Your new high-performance website is live.",
+    description: "Your business is ready to welcome customers around the clock.",
     icon: Rocket,
   },
   {
     id: "09",
-    title: "Maintain",
-    description:
-      "Keeping it up-to-date is critical to the long-term success of your website.",
+    title: "Grow",
+    description: "We keep improving the foundations as your business moves forward.",
     icon: Settings,
   },
 ];
@@ -98,7 +92,7 @@ export default function Process() {
         >
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
           <span className="text-[#2ecc71] text-sm md:text-base font-semibold tracking-widest uppercase">
-            Our Process
+            Your Growth Plan
           </span>
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
         </motion.div>
@@ -109,8 +103,8 @@ export default function Process() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-tight mb-16"
         >
-          How We Bring Your <br className="hidden sm:block" />
-          <span className="text-[#2ecc71]">Vision to Life</span>
+          From your first idea to <br className="hidden sm:block" />
+          <span className="text-[#2ecc71]">real business momentum</span>
         </motion.h2>
 
         {/* Grid - 2 cols mobile, 2 cols md, 3 cols lg */}

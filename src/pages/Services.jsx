@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
-import { Brush, Building, Cloud, NotepadText, Settings, ShoppingCart } from "lucide-react";
+import { CalendarCheck, CircleDollarSign, Clock3, CreditCard, ShoppingCart, UsersRound } from "lucide-react";
 
 const serviceItems = [
   {
-    title: "UI/UX DESIGN",
-    description: "Build dynamic user interfaces",
-    logo: <Brush size={32} color="#22c55e" />,
+    title: "MORE CUSTOMERS",
+    description: "Help the right people find and choose your business.",
+    logo: <UsersRound size={32} color="#22c55e" />,
     x: 5,
     y: 45,
     revealStart: 0.22,
@@ -16,9 +16,9 @@ const serviceItems = [
       "right-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-right",
   },
   {
-    title: "BUSINESS WEBSITES",
-    description: "A professional online presence for your business",
-    logo: <Building size={32} color="#22c55e" />,
+    title: "MORE ONLINE ORDERS",
+    description: "Let customers order anytime without calling you.",
+    logo: <ShoppingCart size={32} color="#22c55e" />,
     x: -7,
     y: 73,
     revealStart: 0.26,
@@ -26,9 +26,9 @@ const serviceItems = [
   textClass: "right-[calc(100%+0.75rem)] top-1/2 w-40 -translate-y-1/2 text-right",
   },
   {
-    title: "Ecommerce Solutions",
-    description: "Custom online stores to boost your sales",
-    logo: <ShoppingCart size={32} color="#22c55e" />,
+    title: "AUTOMATIC BOOKINGS",
+    description: "Turn WhatsApp conversations into organised bookings.",
+    logo: <CalendarCheck size={32} color="#22c55e" />,
     x: 28,
     y: 28,
     revealStart: 0.3,
@@ -47,9 +47,9 @@ const serviceItems = [
     textClass: "left-1/2 top-[-5.5rem] w-44 -translate-x-1/2 text-center",
   },
   {
-    title: "SaaS web Applications",
-    description: "Scalable software solutions tailored to your needs",
-    logo: <Cloud size={32} color="#22c55e" />,
+    title: "SAVE HOURS EVERY WEEK",
+    description: "Remove repetitive tasks from your team’s day.",
+    logo: <Clock3 size={32} color="#22c55e" />,
     logoClass: "rounded-full object-cover",
     imageClass: "h-[62%] w-[62%]",
     x: 70,
@@ -60,9 +60,9 @@ const serviceItems = [
       "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
-    title: "Landing Pages",
-    description: "High-converting pages to grow your audience",
-    logo: <NotepadText size={32} color="#22c55e" />,
+    title: "24/7 SALES",
+    description: "Never miss another customer while you are asleep.",
+    logo: <CircleDollarSign size={32} color="#22c55e" />,
     imageClass: "h-[60%] w-[60%]",
     x: 94,
     y: 45,
@@ -72,9 +72,9 @@ const serviceItems = [
       "left-[calc(100%+1.25rem)] top-1/2 w-44 -translate-y-1/2 text-left",
   },
   {
-    title: "website maintenance",
-    description: "Ongoing support and updates for your website",
-    logo: <Settings size={32} color="#22c55e"/>,
+    title: "BUSINESS AUTOMATION",
+    description: "Keep payments, customers, and daily work moving smoothly.",
+    logo: <CreditCard size={32} color="#22c55e"/>,
     imageClass: "h-[60%] w-[60%]",
     x: 107,
     y: 73,

@@ -6,33 +6,25 @@ import { Rocket, Star, Leaf, Shield } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const teamMembers = [
-  {
-    role: 'Full-Stack Developer',
-    description:
-      'Passionate about building end-to-end web solutions with modern technologies. Specializing in React, Next.js, and Node.js ecosystems.',
-  },
-];
-
 const values = [
   {
-    title: 'Innovation',
-    description: 'Pushing boundaries with cutting-edge technologies and creative solutions.',
+    title: 'More Growth',
+    description: 'Every decision should help your business earn more attention, trust, and revenue.',
     icon: <Rocket size={40} className="mx-auto text-white" />,
   },
   {
-    title: 'Quality',
-    description: 'Every line of code is crafted with precision, performance, and maintainability in mind.',
+    title: 'Less Work',
+    description: 'We remove unnecessary back-and-forth so your team can focus on customers.',
     icon: <Star size={36} className="mx-auto text-white" />,
   },
   {
-    title: 'Growth',
-    description: 'Continuously learning and evolving to deliver the best possible solutions.',
+    title: 'Clear Systems',
+    description: 'Bookings, orders, and information should be easy for everyone to manage.',
     icon: <Leaf size={36} className="mx-auto text-white" />,
   },
   {
-    title: 'Reliability',
-    description: 'Building robust, scalable applications that stand the test of time.',
+    title: 'Long-Term Trust',
+    description: 'Your business needs a professional home customers can rely on at any hour.',
     icon: <Shield size={36} className="mx-auto text-white" />,
   },
 ];
@@ -105,9 +97,9 @@ export default function About() {
               About <span className="text-forest-500">Foresty</span>
             </h2>
             <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-xl">
-              Foresty is a creative development studio that designs and builds custom web applications.
+              Foresty helps local businesses grow with an online presence that does more than simply exist.
 
-We create digital products that solve real problems, with a focus on clarity, performance, and craftsmanship. From internal business tools to public-facing platforms, every project is built to be reliable, efficient, and easy to use.
+We make it easier for customers to choose you, buy from you, book with you, and trust you—while making your day-to-day work lighter.
             </p>
            
           </motion.div>
@@ -120,7 +112,7 @@ We create digital products that solve real problems, with a focus on clarity, pe
           transition={{ delay: 0.5, duration: 0.7 }}
         >
           <h3 className="text-xl md:text-2xl font-bold text-white mb-8 text-center">
-            What Drives Us
+            What Your Business Gets
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {values.map((value, i) => (
@@ -150,9 +142,9 @@ We create digital products that solve real problems, with a focus on clarity, pe
   transition={{ delay: 0.4, duration: 0.6 }}
   className="mt-16 text-center relative z-30 pointer-events-auto"
 >
-  <h3 className="text-xl md:text-2xl font-bold text-white mb-6">Our Tech Stack</h3>
+  <h3 className="text-xl md:text-2xl font-bold text-white mb-6">Built For Business</h3>
   <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-    {['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Framer Motion', 'GSAP','Lenis','typescript','Supa-base','Figma'].map(
+    {['More visibility', '24/7 enquiries', 'Automatic bookings', 'Online orders', 'Secure payments', 'Customer management', 'Mobile friendly', 'Google ready', 'Ongoing support'].map(
       (tech, i) => (
         <motion.span
           key={tech}

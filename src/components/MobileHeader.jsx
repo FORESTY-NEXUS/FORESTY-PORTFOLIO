@@ -19,7 +19,7 @@ export default function MobileHeader() {
             hover:bg-green-600 hover:scale-105 transition
           "
         >
-          Hire Me
+          Hire Us
         </button>
       
 

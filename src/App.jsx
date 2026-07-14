@@ -2,13 +2,7 @@ import { useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Front from "./pages/Front";
-import WhatWeDo from "./pages/WhatWeDo";
-import Process from "./pages/Process";
-import Projects from "./pages/Project";
-import Pricing from "./pages/Pricing";
-import Contact from "./pages/ContactPage";
-import About from "./pages/About";
-import Footer from "./pages/Footer";
+import GrowthJourney from "./pages/GrowthJourney";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,7 +14,7 @@ function App() {
 
     const lenis = new Lenis({
       duration: 2.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (time) => Math.min(1, 1.001 - Math.pow(2, -10 * time)),
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
@@ -31,31 +25,24 @@ function App() {
     });
 
     lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
+    const updateLenis = (time) => lenis.raf(time * 1000);
+    gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      gsap.ticker.remove(updateLenis);
     };
   }, []);
 
   return (
     <>
-    <BlobCursor />
+     
       <Navbar />
+      
       <Front />
-      <WhatWeDo />
-      <Process />
-      <Projects />
-      <Pricing />
-      <Contact />
-      <About />
-      <Footer />
+      <GrowthJourney />
+      
     </>
   );
 }

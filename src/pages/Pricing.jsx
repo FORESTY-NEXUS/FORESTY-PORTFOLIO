@@ -5,44 +5,44 @@ import { Check } from "lucide-react";
 const pricingPlans = [
   {
     id: "basic",
-    name: "Frontend Essentials",
+    name: "Professional Business Website",
     price: "$25",
-    description: "Perfect for landing pages and simple personal portfolios.",
+    description: "For businesses ready to look established and earn trust online.",
     features: [
-      "Custom UI/UX design",
-      "Frontend development only",
-      "Basic animations (fade, scale)",
-      "Fully responsive layout",
-      "Standard performance optimization",
+      "A professional online presence",
+      "Clear services and enquiry paths",
+      "Mobile-friendly customer experience",
+      "Built to help people find you",
+      "A foundation for long-term growth",
     ],
     highlight: false,
   },
   {
     id: "pro",
-    name: "Full Stack Solution",
+    name: "Business Growth Website",
     price: "$35",
-    description: "A complete website with robust backend functionality.",
+    description: "For teams that want more bookings, orders, and time back.",
     features: [
-      "Custom UI/UX design",
-      "Frontend & Backend development",
-      "Database integration",
-      "Dynamic data handling",
-      "Basic interactive animations",
+      "Everything in the business website",
+      "Online bookings or order journeys",
+      "Customer enquiries in one clear place",
+      "Payments and follow-ups made simpler",
+      "Automations that save hours every week",
     ],
     highlight: false,
   },
   {
     id: "premium",
-    name: "Premium Experience",
+    name: "Complete Business System",
     price: "$50",
     description:
-      "High-end web application with complex, immersive interactions.",
+      "For ambitious businesses ready to simplify their entire customer journey.",
     features: [
-      "High-quality premium design",
-      "Complex custom animations (GSAP)",
-      "Full Stack (Frontend + Backend)",
-      "Advanced scroll effects",
-      "Top-tier performance & SEO",
+      "A premium customer-facing experience",
+      "Customer and order management",
+      "A dashboard for the work behind the scenes",
+      "Business reporting that stays clear",
+      "Systems designed to keep growing with you",
     ],
     highlight: true,
   },
@@ -83,7 +83,7 @@ export default function Pricing() {
         >
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
           <span className="text-[#2ecc71] text-sm md:text-base font-semibold tracking-widest uppercase">
-            Pricing
+            Growth Packages
           </span>
           <div className="h-[1px] w-8 bg-[#2ecc71]/40" />
         </motion.div>
@@ -94,8 +94,8 @@ export default function Pricing() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl md:text-5xl lg:text-5xl font-bold text-white text-center leading-tight mb-16"
         >
-          Premium Quality at <br className="hidden sm:block" />
-          <span className="text-[#2ecc71]">Startup Prices</span>
+          Choose the next step for <br className="hidden sm:block" />
+          <span className="text-[#2ecc71]">your business growth</span>
         </motion.h2>
 
         {/* Pricing Cards */}
@@ -155,7 +155,7 @@ export default function Pricing() {
                 href="#contact"
                 className="mt-auto w-full py-3.5 rounded-xl text-center text-sm font-semibold transition-all duration-300 bg-white/5 text-white hover:bg-[#2ecc71] hover:text-white border border-white/10 hover:border-transparent"
               >
-                Choose Plan
+                Let&apos;s Talk Growth
               </a>
             </motion.div>
             </div>

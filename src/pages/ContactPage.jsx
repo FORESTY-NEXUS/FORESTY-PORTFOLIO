@@ -75,7 +75,7 @@ const ContactPage = () => {
     formData.append("from_name", form.name.trim());
     formData.append("from_email", form.email.trim());
     formData.append(replyToField, form.email.trim());
-    formData.append("subject", "New message from your portfolio");
+    formData.append("subject", "New business growth enquiry");
     formData.append("message", form.message.trim());
     formData.append(antiSpamField, "");
 
@@ -113,9 +113,9 @@ const ContactPage = () => {
 
       <div className="relative z-10 grid w-full max-w-5xl gap-10 md:grid-cols-2">
         <div>
-          <h1 className="text-[12vw] font-bold md:text-[5vw]">Contact</h1>
+          <h1 className="text-[12vw] font-bold md:text-[5vw]">Let&apos;s Grow</h1>
           <p className="mt-4 text-gray-400">
-            Send us a message directly. We usually respond within 24-48 hours.
+            Tell us where your business feels stuck. We&apos;ll help you find the clearest path to more customers and less manual work.
           </p>
 
           <div className="mt-6 flex flex-col space-y-3 text-sm text-gray-300">
@@ -176,7 +176,7 @@ const ContactPage = () => {
               name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder="Your Message"
+              placeholder="Tell us about your business"
               rows="5"
               className={`w-full rounded-lg border bg-black/40 p-3 outline-none transition ${
                 errors.message ? "border-red-400/80" : "border-white/10 focus:border-green-400/60"

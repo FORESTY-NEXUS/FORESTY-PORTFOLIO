@@ -9,7 +9,7 @@ const projects = [
     title: "FORESTY PERFUMES",
     image: "/mashab perfumes.png",
     description: "An elegant online storefront designed for a boutique fragrance brand to showcase and market their exclusive perfume collection.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    tech: ["Online store", "More trust", "Always open"],
     live: "https://mashab-perfumes-k53u.vercel.app",
     target: "_blank",
   },
@@ -17,7 +17,7 @@ const projects = [
     title: "FORESTY ZAIQA HUB",
     image: "/zaiqa-hub.jpeg",
     description: "A modern platform enabling restaurants to digitize their operations, feature interactive menus, and build a strong online presence.",
-    tech: ["React", "JavaScript", "Next.js"],
+    tech: ["More online orders", "Clear menu", "Less manual work"],
     live: "https://foresty-resturant.vercel.app",
     target: "_blank",
   },
@@ -25,18 +25,11 @@ const projects = [
     title: "FORESTY NAILS",
     image: "/Frame 2.jpeg",
     description: "A visually appealing website for beauty and nail salons to display their service offerings, portfolios, and retail products.",
-    tech: ["React", "JavaScript", "Tailwind CSS"],
+    tech: ["Automatic bookings", "More enquiries", "Professional presence"],
     live: "https://lily-nails.vercel.app",
     target: "_blank",
   },
-  {
-    title: "FORESTY ACADEMICS",
-    image: "/foresty-acedemics-login.png",
-    description: "A comprehensive digital management system built for educational academies to streamline administrative workflows and campus operations.",
-    tech: ["Next.js", "Node.js", "MongoDB"],
-    live: "https://foresty-academic.vercel.app",
-    target: "_blank",
-  },
+ 
   // Add as many cards as you want here! The code will handle them automatically.
 ];
 gsap.registerPlugin(ScrollTrigger);
@@ -113,7 +106,7 @@ export default function Project() {
           <h1
             className="project-title text-[14vw] sm:text-[18vw] md:text-[16vw] lg:text-[17vw] py-4 font-extrabold text-white leading-none whitespace-nowrap mx-auto"
           >
-            PROJECTS
+            GROWTH STORIES
           </h1>
         </div>
 
