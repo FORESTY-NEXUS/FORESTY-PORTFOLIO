@@ -132,32 +132,30 @@ export default function Front() {
                          lg:flex lg:px-12 xl:px-24"
             >
               <p
-                className="max-w-[520px] text-left text-sm leading-relaxed tracking-wide text-white/85
-                            mix-blend-overlay md:text-[15px] lg:text-base"
+                className="max-w-[650px] text-left text-[13px] leading-relaxed tracking-wide text-white/85
+                            mix-blend-overlay md:text-[14px] lg:text-[15px]"
               >
-                We help businesses get more customers, save time,<br /> and build systems that keep working long after the day ends.
+                Every business is different. Some need better branding. Some need more customers. <br /> Some need automation. Some need a powerful business management system. <br /> We analyze your business and build the right digital solution.
               </p>
 
               <div className="flex flex-col items-end gap-4">
                 <a
-                  href="#projects"
+                  href="#contact"
                   className="rounded-xl bg-[#07893d] px-6 py-2.5 text-center text-sm font-semibold text-white
                              shadow-[0_0_20px_rgba(46,204,113,0.3)] transition-all duration-300
                              hover:bg-[#27ae60] hover:shadow-[0_0_28px_rgba(46,204,113,0.45)]
-                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-48 hover:scale-105 cursor-pointer"
+                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-64 hover:scale-105 cursor-pointer"
                 >
-                  Get More Customers
+                  Get Free Business Consultation
                 </a>
                 <a
-                  onClick={() =>
-                    window.open("https://wa.me/923195403032", "_blank")
-                  }
+                  href="#services"
                   className="rounded-xl border border-[#2ecc71] px-6 py-2.5 text-center text-sm font-semibold text-white
                              transition-all duration-300 hover:bg-[#2ecc71]/10
                              hover:shadow-[0_0_20px_rgba(46,204,113,0.15)]
-                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-48 cursor-pointer hover:scale-105"
+                             sm:px-7 sm:py-3 sm:text-[15px] lg:w-64 cursor-pointer hover:scale-105"
                 >
-                  Let&apos;s Grow Your Business
+                  Explore Our Solutions
                 </a>
               </div>
             </motion.div>
@@ -175,32 +173,30 @@ export default function Front() {
               className="absolute top-[28%] left-0 z-[80] flex w-full flex-col items-center justify-between gap-5 px-4 lg:hidden"
             >
               <p
-                className="max-w-[520px] text-center text-sm leading-relaxed tracking-wide text-white/85
-                            mix-blend-overlay sm:text-base"
+                className="max-w-[520px] text-center text-[13px] leading-relaxed tracking-wide text-white/85
+                            mix-blend-overlay sm:text-sm"
               >
-                We help businesses get more customers, save time, and build systems that keep working long after the day ends.
+                Every business is different. Some need better branding. Some need more customers. Some need automation. Some need a powerful business management system. We analyze your business and build the right digital solution.
               </p>
 
-              <div className="flex items-center gap-3 sm:gap-22">
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full px-2">
                 <a
-                  href="#projects"
-                  className="rounded-xl bg-[#07893d] px-6 py-2.5 text-center text-sm font-semibold text-white
+                  href="#contact"
+                  className="w-full rounded-xl bg-[#07893d] px-4 py-2.5 text-center text-[13px] font-semibold text-white
                              shadow-[0_0_20px_rgba(46,204,113,0.3)] transition-all duration-300
                              hover:bg-[#27ae60] hover:shadow-[0_0_28px_rgba(46,204,113,0.45)]
                              sm:px-7 sm:py-3 sm:text-[15px] hover:scale-105 cursor-pointer"
                 >
-                  Get More Customers
+                  Get Free Business Consultation
                 </a>
                 <a
-                  onClick={() =>
-                    window.open("https://wa.me/923195403032", "_blank")
-                  }
-                  className="rounded-xl border border-[#2ecc71] px-6 py-2.5 text-center text-sm font-semibold text-white
+                  href="#services"
+                  className="w-full rounded-xl border border-[#2ecc71] px-4 py-2.5 text-center text-[13px] font-semibold text-white
                              transition-all duration-300 hover:bg-[#2ecc71]/10
                              hover:shadow-[0_0_20px_rgba(46,204,113,0.15)]
                              sm:px-7 sm:py-3 sm:text-[15px] cursor-pointer hover:scale-105"
                 >
-                  Let&apos;s Grow Your Business
+                  Explore Our Solutions
                 </a>
               </div>
             </motion.div>

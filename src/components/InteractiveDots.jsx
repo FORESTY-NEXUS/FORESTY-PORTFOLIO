@@ -169,6 +169,7 @@ const InteractiveDots = ({
         }
       });
     }
+    // eslint-disable-next-line
     animationFrameId.current = requestAnimationFrame(animate);
   }, [backgroundColor, dotColor, removeWaveLine, animationSpeed]);
   useEffect(() => {

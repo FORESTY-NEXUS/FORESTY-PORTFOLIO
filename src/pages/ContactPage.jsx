@@ -115,7 +115,7 @@ const ContactPage = () => {
         <div>
           <h1 className="text-[12vw] font-bold md:text-[5vw]">Let&apos;s Grow</h1>
           <p className="mt-4 text-gray-400">
-            Tell us where your business feels stuck. We&apos;ll help you find the clearest path to more customers and less manual work.
+            Whether you need a website, business software, automation, branding, advertising, or a custom solution, we&apos;d love to discuss your project.
           </p>
 
           <div className="mt-6 flex flex-col space-y-3 text-sm text-gray-300">

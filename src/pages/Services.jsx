@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
-import { CalendarCheck, CircleDollarSign, Clock3, CreditCard, ShoppingCart, UsersRound } from "lucide-react";
+import {
+  CalendarCheck,
+  CircleDollarSign,
+  Clock3,
+  CreditCard,
+  ShoppingCart,
+  UsersRound,
+} from "lucide-react";
 
 const serviceItems = [
   {
@@ -23,7 +30,8 @@ const serviceItems = [
     y: 73,
     revealStart: 0.26,
     entryX: -28,
-  textClass: "right-[calc(100%+0.75rem)] top-1/2 w-40 -translate-y-1/2 text-right",
+    textClass:
+      "right-[calc(100%+0.75rem)] top-1/2 w-40 -translate-y-1/2 text-right",
   },
   {
     title: "AUTOMATIC BOOKINGS",
@@ -74,7 +82,7 @@ const serviceItems = [
   {
     title: "BUSINESS AUTOMATION",
     description: "Keep payments, customers, and daily work moving smoothly.",
-    logo: <CreditCard size={32} color="#22c55e"/>,
+    logo: <CreditCard size={32} color="#22c55e" />,
     imageClass: "h-[60%] w-[60%]",
     x: 107,
     y: 73,
@@ -92,20 +100,50 @@ function ServiceNode({ item, progress, containerDimensions }) {
   const VIEWBOX_WIDTH = 1000;
   const VIEWBOX_HEIGHT = 780;
 
-  // Wait until we have container dimensions
-  if (!containerDimensions.width || !containerDimensions.height) return null;
+  // Hooks must be at the top unconditionally
+  // Use fallbacks for calculations if container dimensions are zero
+  const safeWidth = containerDimensions.width || 1;
+  const safeHeight = containerDimensions.height || 1;
 
   // 1. Determine how the SVG was scaled and offset on the AUTHORED screen
   const authScale = Math.min(
     AUTHORED_WIDTH / VIEWBOX_WIDTH,
     AUTHORED_HEIGHT / VIEWBOX_HEIGHT,
   );
+  
+  // 3. Determine how the SVG is scaled and offset on the CURRENT screen
+  const currentScale = Math.min(
+    safeWidth / VIEWBOX_WIDTH,
+    safeHeight / VIEWBOX_HEIGHT,
+  );
+
+  const visualScale = currentScale / authScale;
+
+  const nodeOpacity = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.08],
+    [0, 1],
+  );
+
+  const nodeScale = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.1],
+    [0.7 * visualScale, visualScale],
+  );
+
+  const nodeX = useTransform(
+    progress,
+    [item.revealStart, item.revealStart + 0.12],
+    [item.entryX * visualScale, 0],
+  );
+
+  if (!containerDimensions.width || !containerDimensions.height) return null;
+
   const authSvgWidth = VIEWBOX_WIDTH * authScale;
   const authSvgHeight = VIEWBOX_HEIGHT * authScale;
   const authOffsetX = (AUTHORED_WIDTH - authSvgWidth) / 2;
   const authOffsetY = (AUTHORED_HEIGHT - authSvgHeight) / 2;
 
-  // 2. Convert the handcrafted percentages back into the TRUE viewBox coordinates
   const pixelX_Authored = (item.x / 100) * AUTHORED_WIDTH;
   const pixelY_Authored = (item.y / 100) * AUTHORED_HEIGHT;
 
@@ -114,43 +152,13 @@ function ServiceNode({ item, progress, containerDimensions }) {
   const viewBoxY =
     ((pixelY_Authored - authOffsetY) / authSvgHeight) * VIEWBOX_HEIGHT;
 
-  // 3. Determine how the SVG is scaled and offset on the CURRENT screen
-  const currentScale = Math.min(
-    containerDimensions.width / VIEWBOX_WIDTH,
-    containerDimensions.height / VIEWBOX_HEIGHT,
-  );
-
   const currentSvgWidth = VIEWBOX_WIDTH * currentScale;
   const currentSvgHeight = VIEWBOX_HEIGHT * currentScale;
-  const currentOffsetX = (containerDimensions.width - currentSvgWidth) / 2;
-  const currentOffsetY = (containerDimensions.height - currentSvgHeight) / 2;
+  const currentOffsetX = (safeWidth - currentSvgWidth) / 2;
+  const currentOffsetY = (safeHeight - currentSvgHeight) / 2;
 
-  // 4. Map the true viewBox coordinates perfectly onto the current screen!
   const realX = currentOffsetX + (viewBoxX / VIEWBOX_WIDTH) * currentSvgWidth;
   const realY = currentOffsetY + (viewBoxY / VIEWBOX_HEIGHT) * currentSvgHeight;
-
-  // --- THE FIX: Calculate the relative scale ratio for laptop screens ---
-  const visualScale = currentScale / authScale;
-
-  const nodeOpacity = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.08],
-    [0, 1],
-  );
-  
-  // Multiply our final animation scale by the visual scale ratio
-  const nodeScale = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.1],
-    [0.7 * visualScale, visualScale],
-  );
-  
-  // Scale down entry translation offset so elements don't fly in from off-screen bounds
-  const nodeX = useTransform(
-    progress,
-    [item.revealStart, item.revealStart + 0.12],
-    [item.entryX * visualScale, 0],
-  );
 
   return (
     <div
@@ -170,8 +178,8 @@ function ServiceNode({ item, progress, containerDimensions }) {
         }}
       >
         <div className="relative">
-         <div
-  className="
+          <div
+            className="
     flex h-20 w-20 items-center justify-center rounded-full
     
     border-2 border-green-500 
@@ -182,7 +190,7 @@ function ServiceNode({ item, progress, containerDimensions }) {
     sm:h-24 sm:w-24
     relative
   "
->
+          >
             <div className="absolute inset-0 rounded-full shadow-[0_0_26px_rgba(74,222,128,0.35)]" />
             {React.isValidElement(item.logo) ? (
               <div className="relative z-10 flex items-center justify-center h-full w-full">
@@ -273,7 +281,7 @@ export default function Services({ progress }) {
       "
     >
       {/* BACKGROUND TEXT */}
-      <motion.h1
+      <motion.h2
         style={{ opacity: titleOpacity }}
         className="
           absolute
@@ -299,7 +307,7 @@ export default function Services({ progress }) {
         "
       >
         SERVICES
-      </motion.h1>
+      </motion.h2>
 
       {/* --- DESKTOP VIEW (Arc Layout) --- */}
       <div
@@ -421,21 +429,21 @@ export default function Services({ progress }) {
                 className="relative overflow-hidden rounded-[1.15rem] border border-[#1a2e1f] bg-[#0c130d] px-4 py-4"
               >
                 <div className="relative flex items-center gap-4">
-                {/* FIXED ICON CONTAINER FOR MOBILE */}
-<div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#1a2e1f] bg-[#121c14]">
-  {React.isValidElement(item.logo) ? (
-    // By overriding the className completely here, every icon will be perfectly uniform
-    React.cloneElement(item.logo, {
-      className: "h-6 w-6 text-green-400 stroke-[2]" 
-    })
-  ) : (
-    <img
-      src={item.logo}
-      alt={item.title}
-      className="h-6 w-6 object-contain rounded-full"
-    />
-  )}
-</div>
+                  {/* FIXED ICON CONTAINER FOR MOBILE */}
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#1a2e1f] bg-[#121c14]">
+                    {React.isValidElement(item.logo) ? (
+                      // By overriding the className completely here, every icon will be perfectly uniform
+                      React.cloneElement(item.logo, {
+                        className: "h-6 w-6 text-green-400 stroke-[2]",
+                      })
+                    ) : (
+                      <img
+                        src={item.logo}
+                        alt={item.title}
+                        className="h-6 w-6 object-contain rounded-full"
+                      />
+                    )}
+                  </div>
 
                   <div className="min-w-0 text-left">
                     <h3 className="font-mono text-[1.08rem] leading-none text-white">

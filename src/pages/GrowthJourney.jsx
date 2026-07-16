@@ -2,14 +2,26 @@ import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import {
   ArrowRight,
-  ArrowUpRight, // Added for link indicators
+  ArrowUpRight,
+  Bot,
+  Briefcase,
+  Building2,
   Check,
   ChevronDown,
   CircleCheck,
   Clock3,
+  Code,
+  CreditCard,
+  Globe,
+  HeartHandshake,
+  Megaphone,
   MessageCircle,
+  PenTool,
+  Rocket,
+  Settings,
   ShieldCheck,
   Sparkles,
+  Target,
   TrendingUp,
 } from "lucide-react";
 import Contact from "./ContactPage";
@@ -65,13 +77,56 @@ const plans = [
   ["Complete Business System", "For ambitious businesses that want operations to feel simpler.", "Bring your customer experience and daily work into one place.", ["A complete customer-facing website", "Custom dashboards for the work behind the scenes", "Customer, order, or booking management", "Reporting and automations built around your business"]],
 ];
 
+const digitalSolutions = [
+  { title: "Social Media Branding", icon: PenTool, copy: "Engaging visuals and consistent branding that makes your business memorable." },
+  { title: "Meta Ads", icon: Megaphone, copy: "Targeted campaigns that bring the right customers directly to your business." },
+  { title: "WhatsApp Automation", icon: MessageCircle, copy: "Automated replies and smart flows that handle customer inquiries instantly." },
+  { title: "POS Systems", icon: CreditCard, copy: "Modern point-of-sale solutions for seamless transactions and inventory." },
+  { title: "Business Software", icon: Briefcase, copy: "Custom tools to manage operations, teams, and day-to-day processes." },
+  { title: "AI Automation", icon: Bot, copy: "Smart systems that handle repetitive tasks so your team can focus on growth." },
+  { title: "Custom Software", icon: Code, copy: "Bespoke digital solutions built exactly around how your business works." },
+  { title: "Websites", icon: Globe, copy: "High-performance websites designed to convert visitors into loyal customers." }
+];
+
+const businessSolutions = [
+  {
+    type: "Startups & Small Businesses",
+    icon: Rocket,
+    needs: ["Professional branding", "Online presence", "Customer awareness", "Marketing"],
+    recommended: ["Branding", "Social Media Design", "Website", "Meta Ads"]
+  },
+  {
+    type: "Growing Businesses",
+    icon: TrendingUp,
+    needs: ["Better operations", "Customer management", "Inventory", "Automation"],
+    recommended: ["POS", "CRM", "Business Software", "WhatsApp Automation"]
+  },
+  {
+    type: "Established Businesses",
+    icon: Building2,
+    needs: ["Scale efficiently", "Automate workflows", "Improve customer experience", "Build custom systems"],
+    recommended: ["Enterprise Software", "AI Automation", "Custom Software", "Advanced Integrations"]
+  }
+];
+
+const whyWorkWithUs = [
+  { title: "Tailored Solutions", icon: Settings, copy: "We don't do cookie-cutter. Every solution is custom-built to match your exact business requirements and goals." },
+  { title: "Business-First Thinking", icon: Target, copy: "We focus on your revenue and operations first, then build the technology required to support them." },
+  { title: "Long-Term Support", icon: HeartHandshake, copy: "A launch is just the beginning. We stand by you to maintain, improve, and scale your systems over time." },
+  { title: "Scalable Technology", icon: TrendingUp, copy: "Our solutions grow with you, ensuring you never have to rebuild from scratch as your business expands." },
+  { title: "Modern Design", icon: Sparkles, copy: "Premium aesthetics that make your business look established, trustworthy, and instantly appealing." },
+  { title: "Reliable Development", icon: ShieldCheck, copy: "Secure, high-performance code that you can depend on, built with the best modern practices." }
+];
+
 const faqs = [
-  ["Why do I need a website if I already have Instagram?", "Instagram helps people discover you. Your own website gives them one trusted place to understand your offer, take action, and find you again without an algorithm deciding who sees you."],
-  ["Will this help me get more customers?", "It gives interested people fewer reasons to leave. Every page is shaped around clarity, trust, and the next action—whether that is a call, booking, order, or enquiry."],
-  ["How long does it take?", "The right timeline depends on what your business needs. We give you a clear plan with realistic milestones before work begins."],
-  ["Can I update it myself?", "Yes. Where your team needs to manage content, products, listings, or bookings, we make that work straightforward and show you how to use it."],
-  ["Do you provide support after launch?", "Yes. A launch is the beginning, not the disappearing act. We can stay involved as your business changes and grows."],
-  ["Can customers order or book online?", "Absolutely. We create the right journey for appointments, reservations, orders, payments, or qualified enquiries—based on how your business works."],
+  ["Do you only build websites?", "No. While we build high-performance websites, we also provide a complete range of digital solutions including custom business software, POS systems, Meta Ads management, WhatsApp automation, and social media branding."],
+  ["Can you create custom business software?", "Yes. We build tailored dashboards, CRM systems, and management portals that fit exactly how your business operates, helping you streamline daily tasks."],
+  ["Do you offer POS systems?", "Absolutely. We can develop or integrate modern point-of-sale systems connected directly to your online ordering and inventory management."],
+  ["Can you automate WhatsApp messages?", "Yes. We set up smart WhatsApp automations to handle frequent customer questions, appointment bookings, and instantly send automated replies."],
+  ["Do you manage Meta Ads?", "We do. We create and manage targeted Meta Ad campaigns designed to drive the right audience to your business and increase your conversions."],
+  ["Can you help if I already have a website?", "Yes. We can improve your existing website's performance, integrate new automations, or provide ongoing digital marketing and social media support."],
+  ["Can you design social media content for my business?", "We provide professional social media branding and design services to ensure your online presence is cohesive, engaging, and highly memorable."],
+  ["Can my business get a completely custom solution?", "Definitely. Every business is different. We analyze your specific needs and build a custom digital strategy combining the right custom software development, automation tools, and marketing systems."]
 ];
 
 function Reveal({ children, delay = 0, className = "" }) {
@@ -86,6 +141,68 @@ function FAQItem({ question, answer }) {
 export default function GrowthJourney() {
   return (
     <div className="growth-journey">
+      {/* Complete Digital Solutions */}
+      <section id="digital-solutions" className="growth-section growth-surface">
+        <div className="growth-shell">
+          <Reveal className="growth-heading growth-centered">
+            <p className="growth-eyebrow">Complete Digital Solutions</p>
+            <h2>Everything Your Business Needs. One Trusted Partner.</h2>
+            <p>
+              Whether you're launching a new business, growing an established one, or streamlining daily operations, FORESTY delivers the digital solutions that help businesses operate smarter, reach more customers, and grow with confidence.
+            </p>
+          </Reveal>
+          <div className="growth-solution-grid">
+            {digitalSolutions.map((sol, index) => (
+              <Reveal key={sol.title} delay={index * 0.08} className="growth-solution-card group hover:bg-white/5 transition-all duration-300 cursor-pointer">
+                <sol.icon size={26} className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:text-white" />
+                <h3 className="group-hover:text-[#00ba61] transition-colors">{sol.title}</h3>
+                <p>{sol.copy}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Business Solutions Section */}
+      <section id="business-solutions" className="growth-section growth-alt">
+        <div className="growth-shell">
+          <Reveal className="growth-heading growth-split">
+            <div>
+              <p className="growth-eyebrow">Solutions Built Around Your Business</p>
+              <h2>Instead of offering generic services, we build what <em>you need.</em></h2>
+            </div>
+            <p>Every business is different. We analyze your specific operational bottlenecks and growth targets to implement the exact systems that will drive you forward.</p>
+          </Reveal>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {businessSolutions.map((sol, index) => (
+              <Reveal key={sol.type} delay={index * 0.06} className="border border-white/10 bg-[#080a08] p-8 rounded-2xl hover:border-[#00ba61]/40 transition-colors duration-300 group">
+                <div className="mb-6 text-[#00ba61] group-hover:scale-110 transition-transform origin-left"><sol.icon size={32} /></div>
+                <h3 className="text-2xl font-bold mb-6 text-[#f4f7f2]">{sol.type}</h3>
+                
+                <div className="mb-6">
+                  <span className="block text-xs uppercase tracking-wider text-neutral-500 mb-3 font-mono">Needs</span>
+                  <ul className="space-y-2">
+                    {sol.needs.map(need => (
+                      <li key={need} className="text-sm text-neutral-300 flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-neutral-600"></div>{need}</li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="pt-6 border-t border-white/5">
+                  <span className="block text-xs uppercase tracking-wider text-[#00ba61] mb-3 font-mono">Recommended Solutions</span>
+                  <ul className="space-y-2">
+                    {sol.recommended.map(rec => (
+                      <li key={rec} className="text-sm text-white font-medium flex items-center gap-2"><Check size={14} className="text-[#00ba61]" />{rec}</li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="what-we-do" className="growth-section growth-surface">
         <div className="growth-shell">
           <Reveal className="growth-heading growth-split"><div><p className="growth-eyebrow">The cost of standing still</p><h2>How much business are you <em>losing</em> every month?</h2></div><p>When the customer journey is unclear, people do not wait around. They choose the business that makes the next step easier.</p></Reveal>
@@ -103,6 +220,25 @@ export default function GrowthJourney() {
             <Reveal delay={0.24} className="growth-solution-card"><ShieldCheck size={22} /><h3>A stronger first impression</h3><p>Give people the confidence to choose you before they speak to anyone else.</p></Reveal>
           </div>
           <Reveal className="growth-outcome"><div><p className="growth-eyebrow">What this can unlock</p><h3>A calmer day-to-day. A stronger business.</h3></div><ul>{["Accept orders and bookings around the clock", "Give customers answers before they need to call", "Present every service or product with confidence", "Spend more time growing, less time repeating yourself"].map((item) => <li key={item}><Check size={17} />{item}</li>)}</ul></Reveal>
+        </div>
+      </section>
+
+      {/* Why Businesses Work With Us */}
+      <section id="why-work-with-us" className="growth-section" style={{ backgroundColor: '#0a0d0a' }}>
+        <div className="growth-shell">
+          <Reveal className="growth-heading growth-centered">
+            <p className="growth-eyebrow">Why Businesses Work With Us</p>
+            <h2>More than developers. A partner in your <em>growth.</em></h2>
+          </Reveal>
+          <div className="growth-problem-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+            {whyWorkWithUs.map((reason, index) => (
+              <Reveal key={reason.title} delay={index * 0.05} className="growth-problem-card group">
+                <reason.icon size={26} className="mb-8 text-[#00ba61] group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="text-[1.1rem] font-bold text-white mb-3 group-hover:text-[#00ba61] transition-colors">{reason.title}</h3>
+                <p className="text-[0.9rem] text-neutral-400">{reason.copy}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -136,7 +272,8 @@ export default function GrowthJourney() {
                     <img 
                       src={image} 
                       alt={`${business} business example`} 
-                      className="transition-transform duration-500 group-hover:scale-[1.03]" 
+                      className="transition-transform duration-500 group-hover:scale-[1.03]"
+                      loading="lazy" 
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <div className="bg-white text-black p-2.5 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
@@ -175,7 +312,7 @@ export default function GrowthJourney() {
       </section>
 
       <section id="about" className="growth-section growth-alt">
-        <div className="growth-shell growth-belief"><Reveal><p className="growth-eyebrow">Why Foresty exists</p><h2>Every business deserves a website that helps generate revenue instead of just <em>existing.</em></h2></Reveal><Reveal delay={0.12}><p>We believe a local business should be able to compete with bigger names without becoming a marketing expert or spending every evening in its inbox.</p><p>Foresty plants the right online foundations, then shapes them around earning trust, bringing in leads, taking bookings, and keeping your business moving.</p><a href="#contact" className="growth-button">Let&apos;s grow your business <ArrowRight size={17} /></a></Reveal></div>
+        <div className="growth-shell growth-belief"><Reveal><p className="growth-eyebrow">Why Foresty exists</p><h2>Every business deserves a website that helps generate revenue instead of just <em>existing.</em></h2></Reveal><Reveal delay={0.12}><p>We believe a local business should be able to compete with bigger names without becoming a marketing expert or spending every evening in its inbox.</p><p>Foresty plants the right online foundations, then shapes them around earning trust, bringing in leads, taking bookings, and keeping your business moving.</p><p>Beyond websites, we help companies improve their online presence, automate repetitive tasks, optimize business operations, and build custom digital tools tailored to their goals. From social media branding and Meta Ads to WhatsApp automation and custom business software, we provide the complete digital solutions needed for your business growth.</p><a href="#contact" className="growth-button">Let&apos;s grow your business <ArrowRight size={17} /></a></Reveal></div>
         <div className="growth-shell growth-badges">{["Fast delivery", "Mobile friendly", "SEO ready", "WhatsApp integration", "Online payments", "Booking systems", "Order management", "Ongoing support"].map((badge) => <span key={badge}><CircleCheck size={15} />{badge}</span>)}</div>
       </section>
 
