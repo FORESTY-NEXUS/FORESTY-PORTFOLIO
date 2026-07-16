@@ -51,6 +51,15 @@ export default function Front() {
   // Desktop tree opacity stays scroll-linked as before.
   const treeOpacity = useTransform(sceneProgress, [0, 0.92, 1], [1, 1, 0.96]);
 
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const targetId =
+      id === "services" && window.innerWidth >= 1024 ? "services-anchor" : id;
+    document
+      .getElementById(targetId)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section
       id="home"
@@ -133,14 +142,16 @@ export default function Front() {
             >
               <p
                 className="max-w-[650px] text-left text-[13px] leading-relaxed tracking-wide text-white/85
-                            mix-blend-overlay md:text-[14px] lg:text-[15px]"
+                            mix-blend-overlay md:text-[24px] lg:text-[25px]"
               >
-                Every business is different. Some need better branding. Some need more customers. <br /> Some need automation. Some need a powerful business management system. <br /> We analyze your business and build the right digital solution.
+                Your Business Has Problems.
+                <br /> We Build The Right Solution.
               </p>
 
               <div className="flex flex-col items-end gap-4">
                 <a
                   href="#contact"
+                  onClick={(e) => scrollToSection(e, "contact")}
                   className="rounded-xl bg-[#07893d] px-6 py-2.5 text-center text-sm font-semibold text-white
                              shadow-[0_0_20px_rgba(46,204,113,0.3)] transition-all duration-300
                              hover:bg-[#27ae60] hover:shadow-[0_0_28px_rgba(46,204,113,0.45)]
@@ -150,6 +161,7 @@ export default function Front() {
                 </a>
                 <a
                   href="#services"
+                  onClick={(e) => scrollToSection(e, "digital-solutions")}
                   className="rounded-xl border border-[#2ecc71] px-6 py-2.5 text-center text-sm font-semibold text-white
                              transition-all duration-300 hover:bg-[#2ecc71]/10
                              hover:shadow-[0_0_20px_rgba(46,204,113,0.15)]
@@ -165,9 +177,7 @@ export default function Front() {
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={
-                mobileTreeLanded
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 24 }
+                mobileTreeLanded ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
               }
               transition={{ duration: 0.55, ease: "easeOut" }}
               className="absolute top-[28%] left-0 z-[80] flex w-full flex-col items-center justify-between gap-5 px-4 lg:hidden"
@@ -176,12 +186,14 @@ export default function Front() {
                 className="max-w-[520px] text-center text-[13px] leading-relaxed tracking-wide text-white/85
                             mix-blend-overlay sm:text-sm"
               >
-                Every business is different. Some need better branding. Some need more customers. Some need automation. Some need a powerful business management system. We analyze your business and build the right digital solution.
+                Your Business Has Problems.
+                <br /> We Build The Right Solution.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full px-2">
                 <a
                   href="#contact"
+                  onClick={(e) => scrollToSection(e, "contact")}
                   className="w-full rounded-xl bg-[#07893d] px-4 py-2.5 text-center text-[13px] font-semibold text-white
                              shadow-[0_0_20px_rgba(46,204,113,0.3)] transition-all duration-300
                              hover:bg-[#27ae60] hover:shadow-[0_0_28px_rgba(46,204,113,0.45)]
@@ -190,7 +202,8 @@ export default function Front() {
                   Get Free Business Consultation
                 </a>
                 <a
-                  href="#services"
+                  href="#digital-solutions"
+                  onClick={(e) => scrollToSection(e, "digital-solutions")}
                   className="w-full rounded-xl border border-[#2ecc71] px-4 py-2.5 text-center text-[13px] font-semibold text-white
                              transition-all duration-300 hover:bg-[#2ecc71]/10
                              hover:shadow-[0_0_20px_rgba(46,204,113,0.15)]
