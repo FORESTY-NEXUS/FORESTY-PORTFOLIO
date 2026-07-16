@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /private
 
-Sitemap: https://foresty.space/sitemap.xml
+Sitemap: https://foresty-nexus.vercel.app/sitemap.xml
