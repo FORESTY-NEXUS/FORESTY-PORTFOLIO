@@ -1,29 +1,29 @@
-import { BriefcaseIcon, HomeIcon, PhoneIcon, UserIcon } from "lucide-react";
+"use client";
+
+import Link from "next/link";
+import { BriefcaseIcon, HomeIcon, MonitorIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
+
+const navigationItems = [
+  { href: "/", label: "Home", icon: HomeIcon },
+  { href: "/services", label: "Services", icon: BriefcaseIcon },
+  { href: "/websites", label: "Websites", icon: MonitorIcon },
+];
 
 export default function Navbar() {
-  const scrollToSection = (id) => {
-    const targetId = id === "services" && window.innerWidth >= 1024 ? "services-anchor" : id;
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const pathname = usePathname();
+  const isActive = (href) => pathname === href;
 
-  return (
-    <>
-      <nav className="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] lg:w-3/4 h-16 px-6 border border-gray-700 rounded-full backdrop-blur-md bg-white/5 items-center justify-between text-white">
-        <h1 onClick={() => scrollToSection("home")} className="text-2xl font-bold text-green-500 tracking-wider cursor-pointer">FORESTY</h1>
-        <ul className="flex items-center gap-8 text-lg font-medium">
-          <li onClick={() => scrollToSection("services")} className="hover:text-green-500 cursor-pointer transition">Services</li>
-          <li onClick={() => scrollToSection("projects")} className="hover:text-green-500 cursor-pointer transition">Projects</li>
-          <li onClick={() => scrollToSection("about")} className="hover:text-green-500 cursor-pointer transition">About</li>
-          <li onClick={() => scrollToSection("contact")} className="hover:text-green-500 cursor-pointer transition">Contact</li>
-        </ul>
-        <button onClick={() => window.open("https://wa.me/923195403032", "_blank")} className="px-5 py-2 bg-green-500 rounded-full font-medium hover:bg-green-600 hover:scale-105 transition">Let&apos;s Grow</button>
-      </nav>
-      <nav className="md:hidden fixed bottom-0 z-[999] w-[90%] left-[5%] h-16 rounded-full border border-gray-800 bg-black/70 backdrop-blur-xl flex items-center justify-around text-white shadow-2xl shadow-black/30">
-        <button onClick={() => scrollToSection("home")} className="flex flex-col items-center text-xs hover:text-green-500"><HomeIcon /><span>Home</span></button>
-        <button onClick={() => scrollToSection("services")} className="flex flex-col items-center text-xs hover:text-green-500"><BriefcaseIcon /><span>Services</span></button>
-        <button onClick={() => scrollToSection("about")} className="flex flex-col items-center text-xs hover:text-green-500"><UserIcon /><span>About</span></button>
-        <button onClick={() => scrollToSection("contact")} className="flex flex-col items-center text-xs hover:text-green-500"><PhoneIcon /><span>Contact</span></button>
-      </nav>
-    </>
-  );
+  return <>
+    <nav className="fixed top-4 left-1/2 z-50 flex h-16 w-[90%] -translate-x-1/2 items-center justify-between rounded-full border border-gray-700 bg-white/5 px-6 text-white backdrop-blur-md lg:w-3/4" aria-label="Primary navigation">
+      <Link href="/" className="text-2xl font-bold tracking-wider text-green-500 transition hover:text-green-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400">FORESTY</Link>
+      <ul className="hidden items-center gap-8 text-lg font-medium md:flex">
+        {navigationItems.map((item) => <li key={item.href}><Link href={item.href} aria-current={isActive(item.href) ? "page" : undefined} className={`relative py-2 transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400 ${isActive(item.href) ? "text-green-400" : "hover:text-green-500"}`}>{item.label}{isActive(item.href) && <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-0.5 w-5 rounded-full bg-green-400" aria-hidden="true" />}</Link></li>)}
+      </ul>
+      <a href="https://wa.me/923195403032" target="_blank" rel="noreferrer" className="hidden rounded-full bg-green-500 px-5 py-2 font-medium text-black transition hover:scale-105 hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400 sm:inline-flex">Let&apos;s Grow</a>
+    </nav>
+    <nav className="fixed bottom-0 left-[5%] z-[999] flex h-16 w-[90%] items-center justify-around rounded-full border border-gray-800 bg-black/70 text-white shadow-2xl shadow-black/30 backdrop-blur-xl md:hidden" aria-label="Mobile navigation">
+      {navigationItems.map((item) => { const Icon = item.icon; const active = isActive(item.href); return <Link key={item.href} href={item.href} aria-current={active ? "page" : undefined} className={`flex min-w-20 flex-col items-center rounded-lg px-3 py-1 text-xs transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400 ${active ? "text-green-400" : "hover:text-green-500"}`}><Icon size={19} aria-hidden="true" /><span className="mt-0.5">{item.label}</span></Link>; })}
+    </nav>
+  </>;
 }

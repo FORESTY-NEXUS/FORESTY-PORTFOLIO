@@ -12,7 +12,7 @@ const initialErrorState = {
   message: "",
 };
 
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 const WEB3FORMS_ENDPOINT = ["https://api", "web3forms.com/submit"].join(".");
 
 const ContactPage = () => {

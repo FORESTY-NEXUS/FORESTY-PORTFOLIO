@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import "./App.css";
 import Navbar from "./components/Navbar";
-import Front from "./pages/Front";
-import GrowthJourney from "./pages/GrowthJourney";
+import Front from "./sections/Front";
+import GrowthJourney from "./sections/GrowthJourney";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
