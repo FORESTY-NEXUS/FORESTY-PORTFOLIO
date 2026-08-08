@@ -21,6 +21,8 @@ export const services = [
     features: ["Conversion-focused UX", "Responsive by default", "Built for search", "Fast, scalable delivery"],
     visual: "website",
     bgImage: "/services/Service-card 2.png",
+    bgPosition: "right center",
+    bgSize: "contain",
   },
   {
     slug: "custom-software-development",
@@ -30,6 +32,8 @@ export const services = [
     features: ["Tailored workflows", "Secure architecture", "Clear product strategy", "Ongoing support"],
     visual: "software",
     bgImage: "/services/Service-card 1.jpg",
+    bgPosition: "right center",
+    bgSize: "contain",
   },
   {
     slug: "pos-management-systems",
@@ -39,6 +43,8 @@ export const services = [
     features: ["Live reporting", "Inventory control", "Role-based access", "Reliable operations"],
     visual: "pos",
     bgImage: "/services/Service-card 4.png",
+    bgPosition: "right center",
+    bgSize: "contain",
   },
   {
     slug: "whatsapp-automation",
@@ -48,6 +54,8 @@ export const services = [
     features: ["Instant replies", "Lead qualification", "Smart follow-ups", "Team handoff"],
     visual: "automation",
     bgImage: "/services/Service-card 3.png",
+    bgPosition: "right center",
+    bgSize: "contain",
   },
   {
     slug: "digital-marketing",
@@ -57,6 +65,8 @@ export const services = [
     features: ["Growth strategy", "Content direction", "Campaign reporting", "Audience insight"],
     visual: "marketing",
     bgImage: "/marketing-bg.png",
+    bgPosition: "center",
+    bgSize: "cover",
   },
   {
     slug: "branding-identity",
@@ -66,6 +76,8 @@ export const services = [
     features: ["Brand positioning", "Visual identity", "Design systems", "Launch support"],
     visual: "branding",
     bgImage: "/branding-bg.png",
+    bgPosition: "center",
+    bgSize: "cover",
   },
   {
     slug: "meta-ads-management",
@@ -75,6 +87,8 @@ export const services = [
     features: ["Creative testing", "Precise targeting", "Budget optimisation", "Clear reporting"],
     visual: "ads",
     bgImage: "/ads-bg.png",
+    bgPosition: "right center",
+    bgSize: "cover",
   },
 ];
 

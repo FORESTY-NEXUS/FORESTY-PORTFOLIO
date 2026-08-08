@@ -5,7 +5,6 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Animatedglow from "../components/Animatedglow";
 import Services from "./Services";
 import Navbar from "../components/Navbar";
-import MobileHeader from "../components/MobileHeader";
 
 export default function Front() {
   const ref = useRef(null);
@@ -67,7 +66,6 @@ export default function Front() {
       // DESKTOP: 280vh for the scroll animation. MOBILE: height auto so it scrolls normally.
       className="relative bg-black h-auto lg:h-[280vh] lg:overflow-visible"
     >
-      <MobileHeader />
       {/* Desktop Services scroll anchor */}
       <div
         id="services-anchor"

@@ -36,20 +36,7 @@ export default function ServicesCarousel({ services }) {
 
   return (
     <section className="overflow-hidden px-4 py-6 sm:px-6 sm:py-12" aria-labelledby="featured-services-heading">
-      <div className="mx-auto max-w-6xl">
-        {/* Top Header */}
-        <div className="mb-6 space-y-2 text-center sm:mb-10 sm:space-y-3">
-          <span className="inline-block rounded-full border border-emerald-500/20 bg-emerald-950/40 px-3 py-1 text-[11px] font-semibold text-emerald-400 backdrop-blur-md sm:px-4 sm:text-xs">
-            Our Services
-          </span>
-          <h2 id="featured-services-heading" className="text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            <span className="text-emerald-400">Solutions</span> That Grow Your Business
-          </h2>
-          <p className="mx-auto max-w-xl text-xs leading-relaxed text-zinc-400 sm:text-base">
-            We provide end-to-end digital solutions to help your business streamline operations, boost growth, and achieve more.
-          </p>
-        </div>
-
+      <div className="mx-auto max-w-7xl">
         {/* Carousel Wrapper */}
         <div className="relative flex items-center justify-center">
           {/* Left Arrow Button (Desktop) */}
@@ -62,36 +49,35 @@ export default function ServicesCarousel({ services }) {
             <ArrowLeft className="size-4 sm:size-5" />
           </button>
 
-          {/* Banner Card */}
-          <div
-            ref={cardRef}
-            className="relative w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-cover bg-center p-5 shadow-2xl transition-all duration-500 sm:rounded-[2.5rem] sm:p-10 lg:p-12"
-            style={{ backgroundImage: `url("${bgPath}")` }}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
-          >
+          {/* Banner Card - Added fixed min-height and flex column layout */}
+    <div
+  ref={cardRef}
+  className="relative flex w-full flex-col justify-end overflow-hidden rounded-[1.5rem] border border-white/10 bg-no-repeat p-5 shadow-2xl transition-all duration-500 aspect-[4/3] sm:aspect-[16/9] lg:aspect-[2.1/1] sm:rounded-[2.5rem] sm:p-10 lg:p-12"
+  style={{ 
+    backgroundImage: `url("${bgPath}")`,
+    backgroundPosition: service.bgPosition || "center",
+    backgroundSize: service.bgSize || "cover" 
+  }}
+  onMouseEnter={() => setIsPaused(true)}
+  onMouseLeave={() => setIsPaused(false)}
+  onFocus={() => setIsPaused(true)}
+  onBlur={() => setIsPaused(false)}
+>
             {/* Mobile Gradient Overlay for Readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 sm:hidden" aria-hidden="true" />
 
             {/* Card Content Column */}
             <div className="relative z-10 max-w-xl space-y-4 sm:space-y-6">
-              {/* Counter Badge */}
-              <span className="inline-block rounded-full border border-white/10 bg-black/40 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400 backdrop-blur-md sm:px-3 sm:py-1 sm:text-xs">
-                0{activeIndex + 1} / 0{services.length}
-              </span>
-
               {/* Title & Description */}
               <h3 className="text-balance text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 {service.title}
               </h3>
-              <p className="max-w-lg text-xs leading-relaxed text-zinc-200 sm:text-base">
+              <p className="line-clamp-3 max-w-lg text-xs leading-relaxed text-zinc-200 sm:text-base">
                 {service.description}
               </p>
 
               {/* Feature Icons */}
-              <div className="grid grid-cols-2 gap-2 pt-1 sm:gap-3 sm:pt-2 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2 pt-1 sm:grid-cols-4 sm:gap-3 sm:pt-2">
                 {service.features.map((feature, index) => {
                   const Icon = featureIcons[index];
                   return (
@@ -108,12 +94,12 @@ export default function ServicesCarousel({ services }) {
               </div>
 
               {/* Learn More Button */}
-              <div className="pt-2">
+              <div className="group pt-2 transition duration-300">
                 <Link
                   href={`/services/${service.slug}`}
-                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 text-sm font-semibold text-black transition hover:bg-emerald-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 sm:w-auto sm:min-h-12"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 text-sm font-semibold text-black transition group-hover:translate-x-2 hover:bg-emerald-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 sm:min-h-12 sm:w-auto"
                 >
-                  Learn More <ArrowRight size={16} aria-hidden="true" />
+                  Learn More <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -130,9 +116,8 @@ export default function ServicesCarousel({ services }) {
           </button>
         </div>
 
-        {/* Pagination Dots & Mobile Navigation Controls */}
+        {/* Mobile Navigation Controls */}
         <div className="mt-5 flex items-center justify-center gap-4 sm:mt-6">
-          {/* Mobile Prev Button */}
           <button
             type="button"
             onClick={() => goTo(activeIndex - 1)}
@@ -142,23 +127,6 @@ export default function ServicesCarousel({ services }) {
             <ArrowLeft size={16} />
           </button>
 
-          {/* Dots */}
-          <div className="flex items-center gap-2" aria-label="Featured services pagination">
-            {services.map((item, index) => (
-              <button
-                key={item.slug}
-                type="button"
-                aria-label={`Show ${item.title}`}
-                aria-current={index === activeIndex}
-                onClick={() => goTo(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? "w-7 bg-emerald-400" : "w-2 bg-white/20 hover:bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Mobile Next Button */}
           <button
             type="button"
             onClick={() => goTo(activeIndex + 1)}

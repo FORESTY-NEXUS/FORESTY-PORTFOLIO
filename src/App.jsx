@@ -35,9 +35,13 @@ function App() {
   }, []);
 
   return (
+    
     <>
      
       <Navbar />
+ 
+   
+        
       
       <Front />
       <GrowthJourney />

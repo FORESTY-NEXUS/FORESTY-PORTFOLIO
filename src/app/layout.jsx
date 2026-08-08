@@ -1,4 +1,5 @@
 import "../index.css";
+import MobileHeader from "../components/MobileHeader";
 
 export const metadata = {
   title: "Foresty - Complete Digital Business Solutions",
@@ -44,7 +45,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MobileHeader />
+        {children}
+      </body>
     </html>
   );
 }
