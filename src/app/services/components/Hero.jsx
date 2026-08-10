@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 
 export default function Hero() {
   return (
-    <section className="px-5  pt-36 pb-20  sm:pt-35" aria-labelledby="services-title">
+    <section className="px-5  pt-20 pb-20  sm:pt-35" aria-labelledby="services-title">
       <Reveal>
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <Badge>Our Services</Badge>

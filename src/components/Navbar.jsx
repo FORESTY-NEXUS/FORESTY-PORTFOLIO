@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { BriefcaseIcon, HomeIcon, MonitorIcon } from "lucide-react";
+import { BriefcaseIcon, HomeIcon, MonitorIcon, Layers, Info, Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const navigationItems = [
   { href: "/", label: "Home", icon: HomeIcon },
   { href: "/services", label: "Services", icon: BriefcaseIcon },
-  { href: "/websites", label: "Websites", icon: MonitorIcon },
+  { href: "/software", label: "Software", icon: Layers },
+  { href: "/websites", label: "Websites", icon: MonitorIcon }
+  // { href: "/about", label: "About", icon: Info },
+  // { href: "/contact", label: "Contact", icon: Mail },
 ];
 
 export default function Navbar() {

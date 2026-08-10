@@ -12,7 +12,7 @@ export default function ServiceList({ services }) {
           description="Focused expertise, connected around the goals that matter to your business."
         />
         <Reveal stagger>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-4">
+          <div className="mt-12 grid  grid-cols-2  gap-6 md:grid-cols-4">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}

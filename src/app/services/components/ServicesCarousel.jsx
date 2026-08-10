@@ -67,12 +67,12 @@ export default function ServicesCarousel({ services }) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 sm:hidden" aria-hidden="true" />
 
             {/* Card Content Column */}
-            <div className="relative z-10 max-w-xl space-y-4 sm:space-y-6">
+            <div className="relative z-10 max-w-xl space-y-4  sm:space-y-6">
               {/* Title & Description */}
               <h3 className="text-balance text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 {service.title}
               </h3>
-              <p className="line-clamp-3 max-w-lg text-xs leading-relaxed text-zinc-200 sm:text-base">
+              <p className="line-clamp-3  not-lg:text-center max-w-lg text-xs leading-relaxed text-zinc-200 sm:text-base">
                 {service.description}
               </p>
 
