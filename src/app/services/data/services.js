@@ -20,7 +20,7 @@ export const services = [
     icon: LayoutTemplate,
     features: ["Conversion-focused UX", "Responsive by default", "Built for search", "Fast, scalable delivery"],
     visual: "website",
-    bgImage: "/services/Service-card 2.png",
+    bgImage: "/services/website.png",
     bgPosition: "right center",
     bgSize: "contain",
   },
@@ -31,7 +31,7 @@ export const services = [
     icon: Code2,
     features: ["Tailored workflows", "Secure architecture", "Clear product strategy", "Ongoing support"],
     visual: "software",
-    bgImage: "/services/Service-card 1.jpg",
+    bgImage: "/services/custom software.png",
     bgPosition: "right center",
     bgSize: "contain",
   },
@@ -42,7 +42,7 @@ export const services = [
     icon: MonitorCog,
     features: ["Live reporting", "Inventory control", "Role-based access", "Reliable operations"],
     visual: "pos",
-    bgImage: "/services/Service-card 4.png",
+    bgImage: "/services/pos&management.png",
     bgPosition: "right center",
     bgSize: "contain",
   },
@@ -53,7 +53,7 @@ export const services = [
     icon: Bot,
     features: ["Instant replies", "Lead qualification", "Smart follow-ups", "Team handoff"],
     visual: "automation",
-    bgImage: "/services/Service-card 3.png",
+    bgImage: "/services/whatsapp.png",
     bgPosition: "right center",
     bgSize: "contain",
   },
@@ -64,7 +64,7 @@ export const services = [
     icon: BarChart3,
     features: ["Growth strategy", "Content direction", "Campaign reporting", "Audience insight"],
     visual: "marketing",
-    bgImage: "/marketing-bg.png",
+    bgImage: "/services/marketing-bg.png",
     bgPosition: "center",
     bgSize: "cover",
   },
@@ -75,7 +75,7 @@ export const services = [
     icon: Palette,
     features: ["Brand positioning", "Visual identity", "Design systems", "Launch support"],
     visual: "branding",
-    bgImage: "/branding-bg.png",
+    bgImage: "/services/Untitled design.png",
     bgPosition: "center",
     bgSize: "cover",
   },
@@ -86,12 +86,12 @@ export const services = [
     icon: Megaphone,
     features: ["Creative testing", "Precise targeting", "Budget optimisation", "Clear reporting"],
     visual: "ads",
-    bgImage: "/ads-bg.png",
+    bgImage: "/services/Untitled design 2.png",
     bgPosition: "right center",
     bgSize: "cover",
   },
 ];
 
-export const featuredServices = services.slice(0, 4);
+export const featuredServices = services.slice(0, 5);
 
 export const featureIcons = [Rocket, ShieldCheck, Users, Sparkles];

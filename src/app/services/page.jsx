@@ -1,5 +1,4 @@
 import Navbar from "../../components/Navbar";
-import Hero from "./components/Hero";
 import ServicesCarousel from "./components/ServicesCarousel";
 import ServiceList from "./components/ServiceList";
 import CTA from "./components/CTA";
@@ -25,7 +24,7 @@ export default function ServicesPage() {
 
   return <>
     <header><Navbar /></header>
-    <main className="min-h-screen overflow-hidden bg-[#090b09]"><Hero /><ServicesCarousel services={carouselServices} /><ServiceList services={services} /><CTA /></main>
+    <main className="min-h-screen overflow-hidden bg-[#090b09]"><ServicesCarousel services={carouselServices} /><ServiceList services={services} /><CTA /></main>
     <footer className="border-t border-white/10 bg-[#090b09] px-5 py-8 pb-24 text-center text-sm text-zinc-500 md:pb-8">© {new Date().getFullYear()} FORESTY. Digital solutions that grow with you.</footer>
   </>;
 }
